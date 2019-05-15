@@ -19,10 +19,9 @@ public class Rewarding {
 	 Player killer = Bukkit.getPlayer(e.getEntity().getKiller().getName());
 	 if (!Main.inGame.contains(killed) || !Main.inGame.contains(killer)) return;
 	 e.getDrops().clear();
-	 int invValue = getInventoryValue(killed);
 	 Economy killedEco = Economy.getEconomyOfPlayer(killed);
 	 Economy killerEco = Economy.getEconomyOfPlayer(killer);
-	 int killerAward = (int) Math.round((invValue + killedEco.getCommonMoney())*0.3 + (killedEco.getSafeMoney()*0.2));
+	 int killerAward = (int) Math.round((getInventoryValue(killed)/getInventoryValue(killer)*0.2*(killedEco.getCommonMoney() + killedEco.getSafe() + getInventoryValue(killed))));
 	 int killedAward = (int) Math.round(((invValue + killedEco.getCommonMoney())*0.6)+killerEco.getCommonMoney()*0.4);
 	 if (killedAward + killedEco.getSafeMoney() < 200) killedAward = 200;
 	 killerEco.addCommonMoney(killerAward);
