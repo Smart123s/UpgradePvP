@@ -1,0 +1,17 @@
+name: UpgradePvP
+version: 1.0
+main: upgradepvp.main.Main
+author: Smart123s
+commands:
+  UpgradePvpTest:
+    usage: /<command>
+    description: A test command for UpgradePvp
+  Shop:
+    usage: /<command>
+    description: Fix the shop item.
+  Balance:
+    usage: /<command>
+    description: Check your balance.
+  Safe:
+    usage: /<command>
+    description: Move money to Safe Balance.

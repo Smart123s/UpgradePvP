@@ -1,0 +1,56 @@
+Win: 5000
+Swords:
+  Wooden: 200
+  Gold: 250
+  Stone: 400
+  Iron: 900
+  Diamond: 1800
+Armor:
+  Leather:
+    Helmet: 100
+    Chestplate: 200
+    Leggings: 150
+    Boots: 100
+  Chain:
+    Helmet: 200
+    Chestplate: 400
+    Leggings: 300
+    Boots: 200
+  Gold:
+    Helmet: 200
+    Chestplate: 400
+    Leggings: 300
+    Boots: 200
+  Iron:
+    Helmet: 400
+    Chestplate: 800
+    Leggings: 600
+    Boots: 400
+  Diamond:
+    Helmet: 800
+    Chestplate: 1600
+    Leggings: 1200
+    Boots: 800
+Enchants:
+  Unbreaking: 100
+  Protection: 300
+  FallProt: 50
+  FireProt: 75
+  BlastProt: 75
+  ProjProt: 75
+  Thorns: 500
+  AquaInf: 50
+  Respiration: 150
+  Sharpness: 500
+  FireAspect: 1000
+  Knockback: 400
+  Power: 750
+  Punch: 400
+  Flame: 1500
+  Infinity: 2000
+Other:
+  Bow: 1000
+  Arrow: 50
+  FishingRod: 500
+  SnowBall: 2
+  KeepInventory: 3500 
