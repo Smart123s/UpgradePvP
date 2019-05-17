@@ -21,9 +21,9 @@ public class Rewarding {
 	 e.getDrops().clear();
 	 Economy killedEco = Economy.getEconomyOfPlayer(killed);
 	 Economy killerEco = Economy.getEconomyOfPlayer(killer);
-	 int killerAward = (int) Math.round((getInventoryValue(killed)/getInventoryValue(killer)*0.2*(killedEco.getCommonMoney() + killedEco.getSafe() + getInventoryValue(killed))));
-	 int killedAward = (int) Math.round(((invValue + killedEco.getCommonMoney())*0.6)+killerEco.getCommonMoney()*0.4);
-	 if (killedAward + killedEco.getSafeMoney() < 200) killedAward = 200;
+	 int killerAward = (int) Math.round((getInventoryValue(killed)/getInventoryValue(killer)*0.2*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
+	 int killedAward = (int) Math.round((getInventoryValue(killed)*0.25+(killedEco.getCommonMoney() + killerEco.getCommonMoney() + killerEco.getSafeMoney() + getInventoryValue(killer))*0.4));
+	 if (killedAward < 200) killedAward = 200;
 	 killerEco.addCommonMoney(killerAward);
 	 killedEco.setCommonMoney(killedAward);
 	 killer.sendMessage(Main.prefix + "$" + killerAward + " has been added to your account!");
