@@ -128,10 +128,24 @@ public class ShopInventory{
 		inv.setItem(1, shopInv.createBasicItem(Material.ARROW, "Other.Arrow"));
 		inv.setItem(2, shopInv.createBasicItem(Material.FISHING_ROD, "Other.FishingRod"));
 		inv.setItem(3, shopInv.createBasicItem(Material.SNOW_BALL, "Other.SnowBall"));
-		inv.setItem(4, shopInv.createItemWithName(Material.EXP_BOTTLE, "Other.KeepInventory",ChatColor.AQUA + "Keep Inventory"));
+		
+		
+		inv.setItem(4, generateKeepInvItem());
 	
 		shopInv=null;
 		return inv;
+	}
+	
+	private static ItemStack generateKeepInvItem() {
+		ShopInventory shopInv = new ShopInventory();
+		ItemStack keepInvItem = shopInv.createItemWithName(Material.EXP_BOTTLE, "Other.KeepInventory",ChatColor.AQUA + "Keep Inventory");
+		List<String> lore = keepInvItem.getItemMeta().getLore();
+		//TODO: Check if coloring looks good in-game
+		lore.add(ChatColor.BLUE + "" + ChatColor.ITALIC + "Permament");
+		ItemMeta meta = keepInvItem.getItemMeta();
+		meta.setLore(lore);
+		keepInvItem.setItemMeta(meta);
+		return keepInvItem;
 	}
 
 	private ItemStack createBasicItem(Material material, String priceLoc) {

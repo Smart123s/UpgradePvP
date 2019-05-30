@@ -6,12 +6,14 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
 import upgradepvp.shop.AddEnchantment;
 import upgradepvp.shop.OpenShopItem;
 import upgradepvp.shop.Rewarding;
 import upgradepvp.shop.ShopInventoryListener;
+import upgradepvp.shop.UKeepInventory;
 
 public class Listeners implements Listener{
 
@@ -19,6 +21,7 @@ public class Listeners implements Listener{
 	private ShopInventoryListener shopInventoryListener = new ShopInventoryListener();
 	private Rewarding rewarding = new Rewarding();
 	private AddEnchantment addEnchantment = new AddEnchantment();
+	private UKeepInventory uKeepInventory = new UKeepInventory();
 	
 	@EventHandler
 	public void onInventoryClickEvent(InventoryClickEvent e) {
@@ -47,5 +50,10 @@ public class Listeners implements Listener{
 	@EventHandler
 	public void onFoodLevelChangeEvent(FoodLevelChangeEvent e) {
 		e.setCancelled(true);
+	}
+	
+	@EventHandler
+	public void onPlayerRespavnEvent(PlayerRespawnEvent e) {
+		uKeepInventory.onPlayerRespawnEvent(e);
 	}
 }
