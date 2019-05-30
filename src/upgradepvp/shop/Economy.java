@@ -3,6 +3,7 @@ package upgradepvp.shop;
 import java.util.HashMap;
 
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 
 public class Economy {
 
@@ -11,6 +12,7 @@ public class Economy {
 	private int safeBalance = 0;
 	private boolean hasKeepInv = false;
 	private static HashMap<Player, Economy> eco = new HashMap<Player, Economy>();
+	private Inventory keepInvStorage;
 	
 	
 	public Economy() {
@@ -90,6 +92,14 @@ public class Economy {
 	
 	public static Economy getEconomyOfPlayer(Player player) {
 		return eco.get(player);
+	}
+	
+	public void storeKeepInvItems() {
+		
+	}
+	
+	public Inventory getKeepInvItems() {
+		return this.keepInvStorage;
 	}
 	
 }
