@@ -9,7 +9,9 @@ public class Economy {
 	public static int startingMoney = 200;
 	private int commonBalance = 0;
 	private int safeBalance = 0;
+	private boolean hasKeepInv = false;
 	private static HashMap<Player, Economy> eco = new HashMap<Player, Economy>();
+	
 	
 	public Economy() {
 		this.commonBalance = 0;
@@ -74,6 +76,14 @@ public class Economy {
 		eco.put(player, this);
 	}
 	
+	public void addKeepInv() {
+		this.hasKeepInv = true;
+	}
+	
+	public boolean hasKeepInv() {
+		return this.hasKeepInv;
+	}
+	
 	public static void createEconomyOfPlayer(Player player) {
 		eco.put(player, new Economy());
 	}
@@ -81,4 +91,5 @@ public class Economy {
 	public static Economy getEconomyOfPlayer(Player player) {
 		return eco.get(player);
 	}
+	
 }
