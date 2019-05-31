@@ -22,8 +22,8 @@ public class Rewarding {
 	 Economy killedEco = Economy.getEconomyOfPlayer(killed);
 	 Economy killerEco = Economy.getEconomyOfPlayer(killer);
 	 killedEco.addKeepInv();
-	 int killerAward = (int) Math.round((getInventoryValue(killed)/getInventoryValue(killer)*0.2*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
-	 int killedAward = (int) Math.round(((killedEco.getCommonMoney() + killerEco.getCommonMoney() + killerEco.getSafeMoney() + getInventoryValue(killer))*0.4));
+	 int killerAward = (int) Math.round((((getInventoryValue(killed)+1)/(getInventoryValue(killer)+1)*0.2)*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
+	 int killedAward = (int) Math.round((getInventoryValue(killed)*0.25+(killedEco.getCommonMoney() + killerEco.getCommonMoney() + killerEco.getSafeMoney() + getInventoryValue(killer))*0.4));
 	 //TODO: Check if KeepInv isn't too OP?
 	 if (!killedEco.hasKeepInv()) killedAward += (int) (Math.round(getInventoryValue(killed)*0.25));
 	 if (killedAward < 200) killedAward = 200;
@@ -123,13 +123,13 @@ public class Rewarding {
 				valueOfItem+=calcItemValue(copyCurrentItem, "Other.Bow");
 				break;
 			case ARROW: 
-				valueOfItem+=calcItemValue(copyCurrentItem, "Other.Arrow");
+				valueOfItem+=calcItemValue(copyCurrentItem, "Other.Arrow")*copyCurrentItem.getAmount();
 				break;
 			case FISHING_ROD: 
 				valueOfItem+=calcItemValue(copyCurrentItem, "Other.FishingRod");
 				break;
 			case SNOW_BALL: 
-				valueOfItem+=calcItemValue(copyCurrentItem, "Other.SnowBall");
+				valueOfItem+=calcItemValue(copyCurrentItem, "Other.SnowBall")*copyCurrentItem.getAmount();
 				break;
 			case ENCHANTED_BOOK: 
 				if(copyCurrentItem.getItemMeta().getDisplayName().contains("Unbreaking")) valueOfItem+=config.getPrice().getInt("Enchants.Unbreaking");
@@ -179,7 +179,12 @@ public class Rewarding {
 	}
 	 
 	private int calcItemValue(ItemStack item, String priceLoc) {
-		return (int) ((float) (config.getPrice().getInt(priceLoc)*(item.getType().getMaxDurability()-item.getDurability())/item.getType().getMaxDurability()));
+		try {
+			return (int) ((float) (config.getPrice().getInt(priceLoc)*(item.getType().getMaxDurability()-item.getDurability())/item.getType().getMaxDurability()));
+		} catch (ArithmeticException e) {
+			return config.getPrice().getInt(priceLoc);
+		}
+		
 	}
 	
 }
