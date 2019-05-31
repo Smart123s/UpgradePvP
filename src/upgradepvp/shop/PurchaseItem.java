@@ -41,4 +41,9 @@ public class PurchaseItem {
 		item = item.clone();
 		buy(player, PurchaseItem.removeMeta(item.clone(), keepName), PurchaseItem.getPrice(item.clone()));
 	}
+	
+	public static void  buyKeepInv(Player player) {
+		//TODO: Send message like above, enable keepInv in the player's eco
+	}
+	
 }

@@ -55,5 +55,6 @@ public class Listeners implements Listener{
 	@EventHandler
 	public void onPlayerRespavnEvent(PlayerRespawnEvent e) {
 		uKeepInventory.onPlayerRespawnEvent(e);
+		openShopItem.onPlayerRespawnEvent(e);
 	}
 }

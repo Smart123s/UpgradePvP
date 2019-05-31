@@ -13,6 +13,7 @@ public class Economy {
 	private boolean hasKeepInv = false;
 	private static HashMap<Player, Economy> eco = new HashMap<Player, Economy>();
 	private Inventory keepInvStorage;
+	private Player playerOfEco;
 	
 	
 	public Economy() {
@@ -76,6 +77,7 @@ public class Economy {
 	
 	public void setEconomyOfPlayer(Player player) {
 		eco.put(player, this);
+		this.playerOfEco = player;
 	}
 	
 	public void addKeepInv() {
@@ -87,7 +89,8 @@ public class Economy {
 	}
 	
 	public static void createEconomyOfPlayer(Player player) {
-		eco.put(player, new Economy());
+		Economy nEco = new Economy();
+		nEco.setEconomyOfPlayer(player);
 	}
 	
 	public static Economy getEconomyOfPlayer(Player player) {
@@ -95,11 +98,25 @@ public class Economy {
 	}
 	
 	public void storeKeepInvItems() {
+		Inventory cInv = this.playerOfEco.getInventory();
+		//Items
+		for (int i = 0; i <= 35; i++) {
+			this.keepInvStorage.setItem(i, cInv.getItem(i));
+		}
+		
+		//Armor
+		for (int i = 100; i <= 103; i++) {
+			this.keepInvStorage.setItem(i, cInv.getItem(i));
+		}
 		
 	}
 	
 	public Inventory getKeepInvItems() {
 		return this.keepInvStorage;
+	}
+	
+	public void clearKeepInvStorage() {
+		this.keepInvStorage = null;
 	}
 	
 }

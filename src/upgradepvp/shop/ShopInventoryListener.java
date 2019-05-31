@@ -76,7 +76,7 @@ ShopInventory invs = new ShopInventory();
 			if (e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName() == ShopInventory.other.getItem(8).getItemMeta().getDisplayName()) {
 				Bukkit.getPlayer(e.getWhoClicked().getName()).openInventory(ShopInventory.start);
 			} else if (e.getCurrentItem().getType() == Material.EXP_BOTTLE) {
-				//TODO: KeepInventory purchase
+				PurchaseItem.buyKeepInv(Bukkit.getPlayer(e.getWhoClicked().getName()));
 			} else {
 				PurchaseItem.buyRaw(Bukkit.getPlayer(e.getWhoClicked().getName()), e.getCurrentItem().clone(), false);
 			}
