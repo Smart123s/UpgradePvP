@@ -22,7 +22,7 @@ public class Rewarding {
 	 Economy killedEco = Economy.getEconomyOfPlayer(killed);
 	 Economy killerEco = Economy.getEconomyOfPlayer(killer);
 	 killedEco.addKeepInv();
-	 int killerAward = (int) Math.round((((getInventoryValue(killed)+1)/(getInventoryValue(killer)+1)*0.2)*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
+	 int killerAward = (int) Math.round(((getInventoryValue(killed)/getInventoryValue(killer)+1*0.2)*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
 	 int killedAward = (int) Math.round((getInventoryValue(killed)*0.25+(killedEco.getCommonMoney() + killerEco.getCommonMoney() + killerEco.getSafeMoney() + getInventoryValue(killer))*0.4));
 	 //TODO: Check if KeepInv isn't too OP?
 	 if (!killedEco.hasKeepInv()) killedAward += (int) (Math.round(getInventoryValue(killed)*0.25));
