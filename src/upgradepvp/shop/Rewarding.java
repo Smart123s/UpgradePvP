@@ -26,11 +26,11 @@ public class Rewarding {
 	 int killedAward = (int) Math.round((getInventoryValue(killed)*0.25+(killedEco.getCommonMoney() + killerEco.getCommonMoney() + killerEco.getSafeMoney() + getInventoryValue(killer))*0.4));
 	 //TODO: Check if KeepInv isn't too OP?
 	 if (!killedEco.hasKeepInv()) killedAward += (int) (Math.round(getInventoryValue(killed)*0.25));
-	 if (killedAward < 200) killedAward = 200;
-	 killer.sendMessage(Main.prefix + "$" + killerAward + " has been added to your account!");
-	 killed.sendMessage(Main.prefix + "$" + killedAward + " is your new balance!");
+	 if (killedAward < 250) killedAward = 250;
 	 killerEco.addCommonMoney(killerAward);
 	 killedEco.setCommonMoney(killedAward);
+	 killer.sendMessage(Main.prefix + "$" + killerAward + " has been added to your account!");
+	 killed.sendMessage(Main.prefix + "$" + killedAward + " is your new balance!");
 	 }
 	
 	public int getInventoryValue(Player player) {
