@@ -7,7 +7,7 @@ import org.bukkit.inventory.Inventory;
 
 public class Economy {
 
-	public static int startingMoney = 200;
+	public static int startingMoney = 250;
 	private int commonBalance = 0;
 	private int safeBalance = 0;
 	private boolean hasKeepInv = false;
