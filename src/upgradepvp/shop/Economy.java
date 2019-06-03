@@ -97,17 +97,16 @@ public class Economy {
 		return eco.get(player);
 	}
 	
+	//TODO: Check if this works
 	public void storeKeepInvItems() {
 		Inventory cInv = this.playerOfEco.getInventory();
-		//Items
-		for (int i = 0; i <= 35; i++) {
-			this.keepInvStorage.setItem(i, cInv.getItem(i));
+		for (int i = 0; i <= 40; i++) {
+			try {
+				if (cInv.getItem(i) == null) continue;
+				this.keepInvStorage.setItem(i, cInv.getItem(i));
+			} catch (ArrayIndexOutOfBoundsException ex) {}
 		}
-		
-		//Armor
-		for (int i = 100; i <= 103; i++) {
-			this.keepInvStorage.setItem(i, cInv.getItem(i));
-		}
+
 		
 	}
 	
