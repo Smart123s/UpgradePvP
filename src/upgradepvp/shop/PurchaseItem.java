@@ -47,7 +47,10 @@ public class PurchaseItem {
 	public static void buyKeepInv(Player player) {
 		Economy eco = Economy.getEconomyOfPlayer(player);
 		final int price = config.getPrice().getInt("Other.KeepInventory");
-		if (!eco.hasEnough(price)) {
+		if (eco.hasKeepInv()) {
+			player.sendMessage(Main.prefixError + "You allready own this product!");
+			return;
+		} else if (!eco.hasEnough(price)) {
 			player.sendMessage(Main.prefixError + "You don't have enough money to purchase this product!");
 			return;
 		}
