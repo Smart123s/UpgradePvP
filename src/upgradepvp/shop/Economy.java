@@ -2,6 +2,7 @@ package upgradepvp.shop;
 
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
@@ -97,17 +98,16 @@ public class Economy {
 		return eco.get(player);
 	}
 	
-	//TODO: Check if this works
 	public void storeKeepInvItems() {
 		Inventory cInv = this.playerOfEco.getInventory();
+		keepInvStorage = Bukkit.createInventory(null, 45);
 		for (int i = 0; i <= 40; i++) {
 			try {
 				if (cInv.getItem(i) == null) continue;
 				this.keepInvStorage.setItem(i, cInv.getItem(i));
-			} catch (ArrayIndexOutOfBoundsException ex) {}
+			} catch (ArrayIndexOutOfBoundsException ex) {	
+			} catch (NullPointerException ex) {}	
 		}
-
-		
 	}
 	
 	public Inventory getKeepInvItems() {
