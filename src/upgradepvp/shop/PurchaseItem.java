@@ -5,10 +5,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import upgradepvp.main.ConfigManager;
 import upgradepvp.main.Main;
 
 public class PurchaseItem {
-
+	static ConfigManager config = ConfigManager.getInstance();	
+	
 	public static void buy(Player player, ItemStack item, int price) {
 		Economy eco = Economy.getEconomyOfPlayer(player);
 		if (!eco.hasEnough(price)) {
@@ -42,8 +44,16 @@ public class PurchaseItem {
 		buy(player, PurchaseItem.removeMeta(item.clone(), keepName), PurchaseItem.getPrice(item.clone()));
 	}
 	
-	public static void  buyKeepInv(Player player) {
-		//TODO: Send message like above, enable keepInv in the player's eco
+	public static void buyKeepInv(Player player) {
+		Economy eco = Economy.getEconomyOfPlayer(player);
+		final int price = config.getPrice().getInt("Other.KeepInventory");
+		if (!eco.hasEnough(price)) {
+			player.sendMessage(Main.prefixError + "You don't have enough money to purchase this product!");
+			return;
+		}
+		eco.removeMoney(price);
+		player.sendMessage(Main.prefix + "You successfully purchased KeepInventory for this round.");
+		eco.addKeepInv();	
 	}
 	
 }

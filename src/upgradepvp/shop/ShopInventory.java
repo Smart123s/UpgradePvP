@@ -140,7 +140,6 @@ public class ShopInventory{
 		ShopInventory shopInv = new ShopInventory();
 		ItemStack keepInvItem = shopInv.createItemWithName(Material.EXP_BOTTLE, "Other.KeepInventory",ChatColor.AQUA + "Keep Inventory");
 		List<String> lore = keepInvItem.getItemMeta().getLore();
-		//TODO: Check if coloring looks good in-game
 		lore.add(ChatColor.BLUE + "" + ChatColor.ITALIC + "Permament");
 		ItemMeta meta = keepInvItem.getItemMeta();
 		meta.setLore(lore);
