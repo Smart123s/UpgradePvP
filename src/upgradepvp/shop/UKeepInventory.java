@@ -9,20 +9,17 @@ public class UKeepInventory {
 	public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
 		Economy eco = Economy.getEconomyOfPlayer(e.getPlayer());
 		
-		
-		
 		if (!eco.hasKeepInv()) return;
 		
 		Inventory pInv = e.getPlayer().getInventory();
 		Inventory kInv = eco.getKeepInvItems();
 		
-		
-		//TODO: FIX THIS
 		for (int i = 0; i <= 40; i++) {
 			try {
-				if (pInv.getItem(i) == null) continue;
+				if (kInv.getItem(i) == null) continue;
 				pInv.setItem(i, kInv.getItem(i));
-			} catch (ArrayIndexOutOfBoundsException ex) {}
+			} catch (ArrayIndexOutOfBoundsException ex) {	
+			} catch (NullPointerException ex) {}
 		}
 		
 		
