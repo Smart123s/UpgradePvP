@@ -33,6 +33,9 @@ public class ConfigManager {
                config = p.getConfig();
                //config.options().copyDefaults(true);
                //saveConfig();
+               
+               price.options().copyDefaults(true);
+               savePrice();
               
                if (!p.getDataFolder().exists()) {
                        p.getDataFolder().mkdir();
