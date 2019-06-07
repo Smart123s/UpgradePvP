@@ -22,11 +22,11 @@ public class Rewarding {
 	 Economy killedEco = Economy.getEconomyOfPlayer(killed);
 	 Economy killerEco = Economy.getEconomyOfPlayer(killer);
 	 if (killedEco.hasKeepInv()) killedEco.storeKeepInvItems();
-	 //TODO: Fix Divide by 0
-	 int killerAward = (int) Math.round(((getInventoryValue(killed)/getInventoryValue(killer)+1*0.2)*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
+	 //TODO: Fix Divide by 0 -- Check if fix works!
+	 int killerAward = (int) Math.round((((float)(getInventoryValue(killed)+1)/(float)(getInventoryValue(killer)+1)*0.2)*(killedEco.getCommonMoney() + killedEco.getSafeMoney() + getInventoryValue(killed))));
 	 int killedAward = (int) Math.round((killedEco.getCommonMoney() + killerEco.getCommonMoney() + killerEco.getSafeMoney() + getInventoryValue(killer))*0.4);
 	 if (!killedEco.hasKeepInv()) killedAward += (int) (Math.round(getInventoryValue(killed)*0.25));
-	 if (killedAward < 250) killedAward = 250;
+	 if (killedAward < Economy.startingMoney) killedAward = Economy.startingMoney;
 	 killerEco.addCommonMoney(killerAward);
 	 killedEco.setCommonMoney(killedAward);
 	 killer.sendMessage(Main.prefix + "$" + killerAward + " has been added to your account!");
