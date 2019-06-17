@@ -43,7 +43,6 @@ public class ShopInventory{
 	
 	private static Inventory generateSwordsInv() {
 		Inventory inv = Bukkit.createInventory(null, 9, "UpgradePvp Shop > Swords");
-		new ShopInventory();
 		
 		inv.setItem(8, createGoBackItem());
 		
@@ -58,7 +57,6 @@ public class ShopInventory{
 	
 	private static Inventory generateArmorInv() {
 		Inventory inv = Bukkit.createInventory(null, 9*3, "UpgradePvp Shop > Armor");
-		new ShopInventory();
 		
 		inv.setItem(26, createGoBackItem());
 		
@@ -117,7 +115,6 @@ public class ShopInventory{
 	
 	private static Inventory generateOtherInv() {
 		Inventory inv = Bukkit.createInventory(null, 9, "UpgradePvp Shop > Others");
-		new ShopInventory();
 		
 		inv.setItem(8, createGoBackItem());
 		
@@ -132,7 +129,6 @@ public class ShopInventory{
 	}
 	
 	private static ItemStack generateKeepInvItem() {
-		new ShopInventory();
 		ItemStack keepInvItem = createItemWithName(Material.EXP_BOTTLE, "Other.KeepInventory",ChatColor.AQUA + "Keep Inventory");
 		List<String> lore = keepInvItem.getItemMeta().getLore();
 		lore.add(ChatColor.BLUE + "" + ChatColor.ITALIC + "Permament");
@@ -197,7 +193,6 @@ public class ShopInventory{
 	}
 	
 	private static ItemStack createEnchantedBook(String ench) {
-		new ShopInventory();
 		final String priceLoc = ConfigLocations.getEnchLoc(ConfigLocations.getBookName(ench));
 		return createItemWithName(Material.ENCHANTED_BOOK, priceLoc, ChatColor.AQUA + ench);
 	}
