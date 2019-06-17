@@ -6,8 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import upgradepvp.economy.Economy;
 import upgradepvp.main.Main;
-import upgradepvp.shop.Economy;
 
 public class Safe implements CommandExecutor{
 

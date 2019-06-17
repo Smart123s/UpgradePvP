@@ -1,4 +1,4 @@
-package upgradepvp.shop;
+package upgradepvp.economy;
 
 import java.util.HashMap;
 

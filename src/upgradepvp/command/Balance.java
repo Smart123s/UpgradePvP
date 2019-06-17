@@ -6,9 +6,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import upgradepvp.economy.CalcInvValue;
+import upgradepvp.economy.Economy;
 import upgradepvp.main.Main;
-import upgradepvp.shop.Economy;
-import upgradepvp.shop.Rewarding;
 
 public class Balance implements CommandExecutor{
 
@@ -21,7 +21,7 @@ public class Balance implements CommandExecutor{
 		}
 		player.sendMessage(Main.prefix + "Your current balance: $" + Economy.getEconomyOfPlayer(player).getCommonMoney());
 		player.sendMessage(Main.prefix + "Your current safe balance: $" + Economy.getEconomyOfPlayer(player).getSafeMoney());
-		player.sendMessage(Main.prefix + "Worth of your inventory: $" + new Rewarding().getInventoryValue(player));
+		player.sendMessage(Main.prefix + "Worth of your inventory: $" + CalcInvValue.getInvVal(player));
 		return true;
 	}
 
