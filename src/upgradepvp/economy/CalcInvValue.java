@@ -36,7 +36,7 @@ public class CalcInvValue {
 			return config.getPrice().getInt(ConfigLocations.getEnchLoc(enchOfItem));
 		}
 		
-		String priceLoc = ConfigLocations.getMaterialName(item.getType());
+		String priceLoc = ConfigLocations.getMaterialLoc(item.getType());
 		if (priceLoc == null) return 0;
 		int valueOfItem = calcNoEnchItemValue(item, priceLoc);
 		
