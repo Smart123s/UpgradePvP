@@ -9,11 +9,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
+import upgradepvp.economy.Rewarding;
+import upgradepvp.economy.UKeepInventory;
 import upgradepvp.shop.AddEnchantment;
 import upgradepvp.shop.OpenShopItem;
-import upgradepvp.shop.Rewarding;
 import upgradepvp.shop.ShopInventoryListener;
-import upgradepvp.shop.UKeepInventory;
 
 public class Listeners implements Listener{
 

@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import upgradepvp.economy.Economy;
 import upgradepvp.main.ConfigManager;
 import upgradepvp.main.Main;
 

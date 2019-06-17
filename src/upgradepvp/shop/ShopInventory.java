@@ -17,6 +17,8 @@ import upgradepvp.main.ConfigManager;
 public class ShopInventory{
 	ConfigManager config = ConfigManager.getInstance();	
 	
+	//TODO: Improve with ConfigLocations
+	
 	public final static Inventory start = generateStartInv();
 	public final static Inventory swords = generateSwordsInv();
 	public final static Inventory armor = generateArmorInv();
