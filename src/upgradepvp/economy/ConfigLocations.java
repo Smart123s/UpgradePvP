@@ -19,7 +19,7 @@ public class ConfigLocations {
 		return bookName.get(name);
 	}
 	
-	public static String getMaterialName(Material material) {
+	public static String getMaterialLoc(Material material) {
 		return materialLoc.get(material);
 	}
 	

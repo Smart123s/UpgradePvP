@@ -12,12 +12,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import upgradepvp.economy.ConfigLocations;
 import upgradepvp.main.ConfigManager;
 
 public class ShopInventory{
 	ConfigManager config = ConfigManager.getInstance();	
-	
-	//TODO: Improve with ConfigLocations
 	
 	public final static Inventory start = generateStartInv();
 	public final static Inventory swords = generateSwordsInv();
@@ -48,11 +47,11 @@ public class ShopInventory{
 		
 		inv.setItem(8, shopInv.createGoBackItem());
 		
-		inv.setItem(0, shopInv.createBasicItem(Material.WOOD_SWORD, "Swords.Wooden"));
-		inv.setItem(1, shopInv.createBasicItem(Material.GOLD_SWORD, "Swords.Gold"));
-		inv.setItem(2, shopInv.createBasicItem(Material.STONE_SWORD, "Swords.Stone"));
-		inv.setItem(3, shopInv.createBasicItem(Material.IRON_SWORD, "Swords.Iron"));
-		inv.setItem(4, shopInv.createBasicItem(Material.DIAMOND_SWORD, "Swords.Diamond"));
+		inv.setItem(0, shopInv.createBasicItem(Material.WOOD_SWORD));
+		inv.setItem(1, shopInv.createBasicItem(Material.GOLD_SWORD));
+		inv.setItem(2, shopInv.createBasicItem(Material.STONE_SWORD));
+		inv.setItem(3, shopInv.createBasicItem(Material.IRON_SWORD));
+		inv.setItem(4, shopInv.createBasicItem(Material.DIAMOND_SWORD));
 		
 		shopInv=null;
 		return inv;
@@ -64,30 +63,30 @@ public class ShopInventory{
 		
 		inv.setItem(26, shopInv.createGoBackItem());
 		
-		inv.setItem(0, shopInv.createBasicItem(Material.LEATHER_BOOTS, "Armor.Leather.Boots"));
-		inv.setItem(1, shopInv.createBasicItem(Material.LEATHER_LEGGINGS, "Armor.Leather.Leggings"));
-		inv.setItem(2, shopInv.createBasicItem(Material.LEATHER_CHESTPLATE, "Armor.Leather.Chestplate"));
-		inv.setItem(3, shopInv.createBasicItem(Material.LEATHER_HELMET, "Armor.Leather.Helmet"));
+		inv.setItem(0, shopInv.createBasicItem(Material.LEATHER_BOOTS));
+		inv.setItem(1, shopInv.createBasicItem(Material.LEATHER_LEGGINGS));
+		inv.setItem(2, shopInv.createBasicItem(Material.LEATHER_CHESTPLATE));
+		inv.setItem(3, shopInv.createBasicItem(Material.LEATHER_HELMET));
 		
-		inv.setItem(5, shopInv.createBasicItem(Material.CHAINMAIL_BOOTS, "Armor.Chain.Boots"));
-		inv.setItem(6, shopInv.createBasicItem(Material.CHAINMAIL_LEGGINGS, "Armor.Chain.Leggings"));
-		inv.setItem(7, shopInv.createBasicItem(Material.CHAINMAIL_CHESTPLATE, "Armor.Chain.Chestplate"));
-		inv.setItem(8, shopInv.createBasicItem(Material.CHAINMAIL_HELMET, "Armor.Chain.Helmet"));
+		inv.setItem(5, shopInv.createBasicItem(Material.CHAINMAIL_BOOTS));
+		inv.setItem(6, shopInv.createBasicItem(Material.CHAINMAIL_LEGGINGS));
+		inv.setItem(7, shopInv.createBasicItem(Material.CHAINMAIL_CHESTPLATE));
+		inv.setItem(8, shopInv.createBasicItem(Material.CHAINMAIL_HELMET));
 		
-		inv.setItem(9, shopInv.createBasicItem(Material.GOLD_BOOTS, "Armor.Gold.Boots"));
-		inv.setItem(10, shopInv.createBasicItem(Material.GOLD_LEGGINGS, "Armor.Gold.Leggings"));
-		inv.setItem(11, shopInv.createBasicItem(Material.GOLD_CHESTPLATE, "Armor.Gold.Chestplate"));
-		inv.setItem(12, shopInv.createBasicItem(Material.GOLD_HELMET, "Armor.Gold.Helmet"));
+		inv.setItem(9, shopInv.createBasicItem(Material.GOLD_BOOTS));
+		inv.setItem(10, shopInv.createBasicItem(Material.GOLD_LEGGINGS));
+		inv.setItem(11, shopInv.createBasicItem(Material.GOLD_CHESTPLATE));
+		inv.setItem(12, shopInv.createBasicItem(Material.GOLD_HELMET));
 		
-		inv.setItem(14, shopInv.createBasicItem(Material.IRON_BOOTS, "Armor.Iron.Boots"));
-		inv.setItem(15, shopInv.createBasicItem(Material.IRON_LEGGINGS, "Armor.Iron.Leggings"));
-		inv.setItem(16, shopInv.createBasicItem(Material.IRON_CHESTPLATE, "Armor.Iron.Chestplate"));
-		inv.setItem(17, shopInv.createBasicItem(Material.IRON_HELMET, "Armor.Iron.Helmet"));
+		inv.setItem(14, shopInv.createBasicItem(Material.IRON_BOOTS));
+		inv.setItem(15, shopInv.createBasicItem(Material.IRON_LEGGINGS));
+		inv.setItem(16, shopInv.createBasicItem(Material.IRON_CHESTPLATE));
+		inv.setItem(17, shopInv.createBasicItem(Material.IRON_HELMET));
 		
-		inv.setItem(18, shopInv.createBasicItem(Material.DIAMOND_BOOTS, "Armor.Diamond.Boots"));
-		inv.setItem(19, shopInv.createBasicItem(Material.DIAMOND_LEGGINGS, "Armor.Diamond.Leggings"));
-		inv.setItem(20, shopInv.createBasicItem(Material.DIAMOND_CHESTPLATE, "Armor.Diamond.Chestplate"));
-		inv.setItem(21, shopInv.createBasicItem(Material.DIAMOND_HELMET, "Armor.Diamond.Helmet"));
+		inv.setItem(18, shopInv.createBasicItem(Material.DIAMOND_BOOTS));
+		inv.setItem(19, shopInv.createBasicItem(Material.DIAMOND_LEGGINGS));
+		inv.setItem(20, shopInv.createBasicItem(Material.DIAMOND_CHESTPLATE));
+		inv.setItem(21, shopInv.createBasicItem(Material.DIAMOND_HELMET));
 		
 		shopInv=null;
 		return inv;
@@ -99,22 +98,22 @@ public class ShopInventory{
 		
 		inv.setItem(17, shopInv.createGoBackItem());
 		
-		inv.setItem(0, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Unbreaking", ChatColor.AQUA + "Unbreaking"));
-		inv.setItem(1, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Protection", ChatColor.AQUA + "Protection"));
-		inv.setItem(2, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.FallProt", ChatColor.AQUA + "Feather Falling"));
-		inv.setItem(3, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.FireProt", ChatColor.AQUA + "Fire Protection"));
-		inv.setItem(4, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.BlastProt", ChatColor.AQUA + "Blast Protection"));
-		inv.setItem(5, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.ProjProt", ChatColor.AQUA + "Projlectile Protection"));
-		inv.setItem(6, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Thorns", ChatColor.AQUA + "Thorns"));
-		inv.setItem(7, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.AquaInf", ChatColor.AQUA + "Aqua Infinity"));
-		inv.setItem(8, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Respiration", ChatColor.AQUA + "Respiration"));
-		inv.setItem(9, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Sharpness", ChatColor.AQUA + "Sharpness"));
-		inv.setItem(10, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.FireAspect", ChatColor.AQUA + "Fire Aspect"));
-		inv.setItem(11, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Knockback", ChatColor.AQUA + "Knockback"));
-		inv.setItem(12, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Power", ChatColor.AQUA + "Power"));
-		inv.setItem(13, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Punch", ChatColor.AQUA + "Punch"));
-		inv.setItem(14, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Flame", ChatColor.AQUA + "Flame"));
-		inv.setItem(15, shopInv.createItemWithName(Material.ENCHANTED_BOOK, "Enchants.Infinity", ChatColor.AQUA + "Infinity"));
+		inv.setItem(0, createEnchantedBook("Unbreaking"));
+		inv.setItem(1, createEnchantedBook("Protection"));
+		inv.setItem(2, createEnchantedBook("Feather Falling"));
+		inv.setItem(3, createEnchantedBook("Fire Protection"));
+		inv.setItem(4, createEnchantedBook("Blast Protection"));
+		inv.setItem(5, createEnchantedBook("Projlectile Protection"));
+		inv.setItem(6, createEnchantedBook("Thorns"));
+		inv.setItem(7, createEnchantedBook("Aqua Infinity"));
+		inv.setItem(8, createEnchantedBook("Respiration"));
+		inv.setItem(9, createEnchantedBook("Sharpness"));
+		inv.setItem(10, createEnchantedBook("Fire Aspect"));
+		inv.setItem(11, createEnchantedBook("Knockback"));
+		inv.setItem(12, createEnchantedBook("Power"));
+		inv.setItem(13, createEnchantedBook("Punch"));
+		inv.setItem(14, createEnchantedBook("Flame"));
+		inv.setItem(15, createEnchantedBook("Infinity"));
 		
 		shopInv=null;
 		return inv;
@@ -126,11 +125,10 @@ public class ShopInventory{
 		
 		inv.setItem(8, shopInv.createGoBackItem());
 		
-		inv.setItem(0, shopInv.createBasicItem(Material.BOW, "Other.Bow"));
-		inv.setItem(1, shopInv.createBasicItem(Material.ARROW, "Other.Arrow"));
-		inv.setItem(2, shopInv.createBasicItem(Material.FISHING_ROD, "Other.FishingRod"));
-		inv.setItem(3, shopInv.createBasicItem(Material.SNOW_BALL, "Other.SnowBall"));
-		
+		inv.setItem(0, shopInv.createBasicItem(Material.BOW));
+		inv.setItem(1, shopInv.createBasicItem(Material.ARROW));
+		inv.setItem(2, shopInv.createBasicItem(Material.FISHING_ROD));
+		inv.setItem(3, shopInv.createBasicItem(Material.SNOW_BALL));
 		
 		inv.setItem(4, generateKeepInvItem());
 	
@@ -149,11 +147,11 @@ public class ShopInventory{
 		return keepInvItem;
 	}
 
-	private ItemStack createBasicItem(Material material, String priceLoc) {
+	private ItemStack createBasicItem(Material material) {
 		ItemStack item = new ItemStack(material, 1);
 		ItemMeta meta = item.getItemMeta();
 		List<String> lore = new ArrayList<String>();
-		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt(priceLoc) + "$");
+		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt(ConfigLocations.getMaterialLoc(material)) + "$");
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;		
@@ -201,5 +199,11 @@ public class ShopInventory{
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;
+	}
+	
+	private static ItemStack createEnchantedBook(String ench) {
+		ShopInventory shopInv = new ShopInventory();
+		final String priceLoc = ConfigLocations.getEnchLoc(ConfigLocations.getBookName(ench));
+		return shopInv.createItemWithName(Material.ENCHANTED_BOOK, priceLoc, ChatColor.AQUA + ench);
 	}
 }
