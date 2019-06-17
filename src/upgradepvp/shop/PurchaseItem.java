@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import upgradepvp.economy.Economy;
 import upgradepvp.main.ConfigManager;
 import upgradepvp.main.Main;
 
@@ -35,7 +36,7 @@ public class PurchaseItem {
 	public static int getPrice(ItemStack item) {
 		if (item.getType() == Material.AIR) return 0;
 		item = item.clone();
-		return Integer.valueOf(item.getItemMeta().getLore().get(0).replaceAll("Cost: ", "").replaceAll("ยง6ยงe", "").replace("$", ""));
+		return Integer.valueOf(item.getItemMeta().getLore().get(0).replaceAll("Cost: ", "").replaceAll("ง6งe", "").replace("$", ""));
 	}
 	
 	public static void buyRaw(Player player, ItemStack item, boolean keepName) {

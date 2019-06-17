@@ -14,8 +14,8 @@ import upgradepvp.command.UpgradePvpTest;
 
 public class Main extends JavaPlugin{
 public static String prefixPlain = "[UpgradePvP] ";
-public static String prefix = "ยงb[UpgradePvP] ยง3";
-public static String prefixError = "ยงc[UpgradePvP] ยง4";
+public static String prefix = "งb[UpgradePvP] ง3";
+public static String prefixError = "งc[UpgradePvP] ง4";
 ConfigManager config = ConfigManager.getInstance();	
 public static ArrayList<Player> inGame = new ArrayList<Player>();
 public static ArrayList<Player> winners = new ArrayList<Player>();

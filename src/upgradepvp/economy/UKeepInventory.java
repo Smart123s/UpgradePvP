@@ -1,4 +1,4 @@
-package upgradepvp.shop;
+package upgradepvp.economy;
 
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.Inventory;
