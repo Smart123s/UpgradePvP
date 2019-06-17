@@ -1,5 +1,7 @@
 package upgradepvp.shop;
 
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -58,6 +60,20 @@ public class PurchaseItem {
 		eco.removeMoney(price);
 		player.sendMessage(Main.prefix + "You successfully purchased KeepInventory for this round.");
 		eco.addKeepInv();	
+	}
+	
+	public static void buyWin(Player player) {
+		Economy eco = Economy.getEconomyOfPlayer(player);
+		int price = ConfigManager.getInstance().getPrice().getInt("Win");
+		if (!eco.hasEnough(price)) {
+			player.sendMessage(Main.prefixError + "You do not have enough money to buy that!");
+		} else {
+			eco.removeMoney(price);
+			Main.winners.add(player);
+			player.setGameMode(GameMode.SPECTATOR);
+			Bukkit.broadcastMessage(Main.prefix + "Player " + player.getName() + " has just finished the game! Place: " + (Main.winners.indexOf(player)+1));
+			Main.inGame.remove(player);
+		}
 	}
 	
 }
