@@ -4,70 +4,62 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class ShopInventoryListener{
-ShopInventory invs = new ShopInventory();
 
 	public void onInventoryClickEvent(InventoryClickEvent e) {
 		if (e.getClickedInventory() == null) return;
 		Player player = Bukkit.getPlayer(e.getWhoClicked().getName());
 		
-		if (e.getClickedInventory().getName() == "UpgradePvp Shop > Main") {
+		switch (e.getClickedInventory().getName()) {
+		case "UpgradePvp Shop > Main" :
 			e.setCancelled(true);
 			
-			if (e.getCurrentItem().getType() == Material.WOOD_SWORD && e.getCurrentItem().getItemMeta().getDisplayName() == "Swords") {
+			switch(e.getCurrentItem().getType()) {
+			case WOOD_SWORD : 
 				player.openInventory(ShopInventory.swords);
-			}
-			else if (e.getCurrentItem().getType() == Material.CHAINMAIL_CHESTPLATE && e.getCurrentItem().getItemMeta().getDisplayName() == "Armor") {
+				break;
+			case CHAINMAIL_CHESTPLATE : 
 				player.openInventory(ShopInventory.armor);
-			}
-			else if (e.getCurrentItem().getType() == Material.ENCHANTED_BOOK && e.getCurrentItem().getItemMeta().getDisplayName() == "Enchantments") {
+				break;
+			case ENCHANTED_BOOK : 
 				player.openInventory(ShopInventory.ench);
-			}
-			else if (e.getCurrentItem().getType() == Material.FISHING_ROD && e.getCurrentItem().getItemMeta().getDisplayName() == "Other") {
+				break;
+			case FISHING_ROD : 
 				player.openInventory(ShopInventory.other);
-			}
-			else if (e.getCurrentItem().getType() == Material.DIAMOND && e.getCurrentItem().getItemMeta().getDisplayName() == "Finish My Game!") {
+				break;
+			case DIAMOND:
 				PurchaseItem.buyWin(player);
-			}
-			else if (e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName() == ShopInventory.start.getItem(8).getItemMeta().getDisplayName()) {
+				break;
+			case BARRIER:
 				player.closeInventory();
+				break;
+			default:
+				break;
 			}
-		}
-		else if (e.getClickedInventory().getName() == "UpgradePvp Shop > Swords") {
+		break;	
+		
+		case "UpgradePvp Shop > Swords" :
+		case "UpgradePvp Shop > Armor" :
+		case "UpgradePvp Shop > Enchantments" :
+		case "UpgradePvp Shop > Others" :	
+			
 			e.setCancelled(true);
-			if (e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName() == ShopInventory.swords.getItem(8).getItemMeta().getDisplayName()) {
+			if (isGoBackItem(e.getCurrentItem())) 
 				player.openInventory(ShopInventory.start);
-			} else {
-				PurchaseItem.buyRaw(player, e.getCurrentItem().clone(), false);
-			}
-		}
-		else if (e.getClickedInventory().getName() == "UpgradePvp Shop > Armor") {
-			e.setCancelled(true);
-			if (e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName() == ShopInventory.armor.getItem(26).getItemMeta().getDisplayName()) {
-				player.openInventory(ShopInventory.start);
-			} else {
-				PurchaseItem.buyRaw(player, e.getCurrentItem().clone(), false);
-			}
-		}
-		else if (e.getClickedInventory().getName() == "UpgradePvp Shop > Enchantments") {
-			e.setCancelled(true);
-			if (e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName() == ShopInventory.ench.getItem(17).getItemMeta().getDisplayName()) {
-				player.openInventory(ShopInventory.start);
-			} else {
-				PurchaseItem.buyRaw(player, e.getCurrentItem().clone(), true);
-			}
-		}
-		else if (e.getClickedInventory().getName() == "UpgradePvp Shop > Others") {
-			e.setCancelled(true);
-			if (e.getCurrentItem().getType() == Material.BARRIER && e.getCurrentItem().getItemMeta().getDisplayName() == ShopInventory.other.getItem(8).getItemMeta().getDisplayName()) {
-				player.openInventory(ShopInventory.start);
-			} else if (e.getCurrentItem().getType() == Material.EXP_BOTTLE) {
+			else if (e.getCurrentItem().getType() == Material.EXP_BOTTLE) 
 				PurchaseItem.buyKeepInv(player);
-			} else {
+			else 
 				PurchaseItem.buyRaw(player, e.getCurrentItem().clone(), false);
-			}
+			break;
 		}
+					
+	}
+	
+	private boolean isGoBackItem(ItemStack item) {
+		return item.getType() == Material.BARRIER 
+				&& item.getItemMeta().getDisplayName().equalsIgnoreCase(ShopInventory.goBackItem.getItemMeta().getDisplayName());
 	}
 	
 }
