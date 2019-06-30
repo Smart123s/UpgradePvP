@@ -25,11 +25,13 @@ public static ArrayList<Player> winners = new ArrayList<Player>();
 		
 		config.setup(this);
 		
+		//Register commands
 		getCommand("UpgradePvpTest").setExecutor(new UpgradePvpTest());
 		getCommand("Shop").setExecutor(new Shop());
 		getCommand("Balance").setExecutor(new Balance());
 		getCommand("Safe").setExecutor(new Safe());
 		
+		//Register events
 		Bukkit.getPluginManager().registerEvents(new Listeners(), this);
 
 		Log.info(prefixPlain + "Successfully started UpgradePvP version " + getDescription().getVersion().toString());

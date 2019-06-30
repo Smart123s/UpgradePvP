@@ -18,34 +18,44 @@ import upgradepvp.main.ConfigManager;
 public class ShopInventory{
 	static ConfigManager config = ConfigManager.getInstance();	
 	
+	//Inventories of the shop
 	public final static Inventory start = generateStartInv();
 	public final static Inventory swords = generateSwordsInv();
 	public final static Inventory armor = generateArmorInv();
 	public final static Inventory ench = generateEnchInv();
 	public final static Inventory other = generateOtherInv();
+	
+	//Item which opens the previous inventory
 	public final static ItemStack goBackItem = createGoBackItem();
 	
 	
 	private static Inventory generateStartInv() {
+		//Create a new Inventory
 		Inventory inv = Bukkit.createInventory(null, 9, "UpgradePvp Shop > Main");
 		
+		//Fill up the inventory with its items
 		inv.setItem(0, createCategoryItem(Material.WOOD_SWORD, "Swords"));
 		inv.setItem(1, createCategoryItem(Material.CHAINMAIL_CHESTPLATE, "Armor"));
 		inv.setItem(2, createCategoryItem(Material.ENCHANTED_BOOK, "Enchantments"));
 		inv.setItem(3, createCategoryItem(Material.FISHING_ROD, "Other"));
-
+		
+		//Add Finish Game diamond
 		inv.setItem(7, createFinishMyGame());
 		
+		//Add Go Back item
 		inv.setItem(8, createGoBackItem());
 		
 		return inv;
 	}
 	
 	private static Inventory generateSwordsInv() {
+		//Create a new Inventory
 		Inventory inv = Bukkit.createInventory(null, 9, "UpgradePvp Shop > Swords");
 		
+		//Add Go Back item
 		inv.setItem(8, createGoBackItem());
 		
+		//Fill up the inventory with its items
 		inv.setItem(0, createBasicItem(Material.WOOD_SWORD));
 		inv.setItem(1, createBasicItem(Material.GOLD_SWORD));
 		inv.setItem(2, createBasicItem(Material.STONE_SWORD));
@@ -56,30 +66,39 @@ public class ShopInventory{
 	}
 	
 	private static Inventory generateArmorInv() {
+		//Create a new Inventory
 		Inventory inv = Bukkit.createInventory(null, 9*3, "UpgradePvp Shop > Armor");
 		
+		//Add Go Back item
 		inv.setItem(26, createGoBackItem());
 		
+		//Fill up the inventory with its items
+		
+		//Leather Armor
 		inv.setItem(0, createBasicItem(Material.LEATHER_BOOTS));
 		inv.setItem(1, createBasicItem(Material.LEATHER_LEGGINGS));
 		inv.setItem(2, createBasicItem(Material.LEATHER_CHESTPLATE));
 		inv.setItem(3, createBasicItem(Material.LEATHER_HELMET));
 		
+		//Chain Armor
 		inv.setItem(5, createBasicItem(Material.CHAINMAIL_BOOTS));
 		inv.setItem(6, createBasicItem(Material.CHAINMAIL_LEGGINGS));
 		inv.setItem(7, createBasicItem(Material.CHAINMAIL_CHESTPLATE));
 		inv.setItem(8, createBasicItem(Material.CHAINMAIL_HELMET));
 		
+		//Gold Armor
 		inv.setItem(9, createBasicItem(Material.GOLD_BOOTS));
 		inv.setItem(10, createBasicItem(Material.GOLD_LEGGINGS));
 		inv.setItem(11, createBasicItem(Material.GOLD_CHESTPLATE));
 		inv.setItem(12, createBasicItem(Material.GOLD_HELMET));
 		
+		//Iron Armor
 		inv.setItem(14, createBasicItem(Material.IRON_BOOTS));
 		inv.setItem(15, createBasicItem(Material.IRON_LEGGINGS));
 		inv.setItem(16, createBasicItem(Material.IRON_CHESTPLATE));
 		inv.setItem(17, createBasicItem(Material.IRON_HELMET));
 		
+		//Diamond Armor
 		inv.setItem(18, createBasicItem(Material.DIAMOND_BOOTS));
 		inv.setItem(19, createBasicItem(Material.DIAMOND_LEGGINGS));
 		inv.setItem(20, createBasicItem(Material.DIAMOND_CHESTPLATE));
@@ -89,10 +108,13 @@ public class ShopInventory{
 	}
 	
 	private static Inventory generateEnchInv() {
+		//Create a new Inventory
 		Inventory inv = Bukkit.createInventory(null, 9*2, "UpgradePvp Shop > Enchantments");
 		
+		//Add Go Back item
 		inv.setItem(17, createGoBackItem());
 		
+		//Fill up the inventory with its items
 		inv.setItem(0, createEnchantedBook("Unbreaking"));
 		inv.setItem(1, createEnchantedBook("Protection"));
 		inv.setItem(2, createEnchantedBook("Feather Falling"));
@@ -114,15 +136,19 @@ public class ShopInventory{
 	}
 	
 	private static Inventory generateOtherInv() {
+		//Create a new Inventory
 		Inventory inv = Bukkit.createInventory(null, 9, "UpgradePvp Shop > Others");
 		
+		//Add Go Back item
 		inv.setItem(8, createGoBackItem());
 		
+		//Fill up the inventory with its items
 		inv.setItem(0, createBasicItem(Material.BOW));
 		inv.setItem(1, createBasicItem(Material.ARROW));
 		inv.setItem(2, createBasicItem(Material.FISHING_ROD));
 		inv.setItem(3, createBasicItem(Material.SNOW_BALL));
 		
+		//Add Keep Inventory item
 		inv.setItem(4, generateKeepInvItem());
 	
 		return inv;
