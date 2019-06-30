@@ -20,9 +20,9 @@ public class Safe implements CommandExecutor{
 		}
 		Economy eco = Economy.getEconomyOfPlayer(player);
 		if (args[0].equalsIgnoreCase("all")) {
-			eco.moveToSafeMoney(eco.getCommonMoney());
 			player.sendMessage(Main.prefix + "$" + eco.getCommonMoney() + " has been taken from your Common Balance.");
 			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*0.6) + " has been added to your Safe Balance.");
+			eco.moveToSafeMoney(eco.getCommonMoney());
 			return true;
 		}
 		else if (!eco.hasEnoughCommon(Integer.valueOf(args[0]))) {
