@@ -23,7 +23,7 @@ public class OpenShopItem {
 		return shopItemHere;
 	}
 	
-	public void openShopItem(Player player) {
+	public void give(Player player) {
 		player.getInventory().setItem(8, shopItem);
 	}
 	
@@ -52,7 +52,8 @@ public class OpenShopItem {
 	}
 	
 	public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
-		openShopItem(e.getPlayer());
+		//Give Open Shop item on Respawn
+		give(e.getPlayer());
 	}
 	
 }
