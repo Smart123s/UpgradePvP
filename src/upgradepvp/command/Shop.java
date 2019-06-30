@@ -19,7 +19,7 @@ public class Shop implements CommandExecutor{
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}
-		openShopItem .openShopItem(player);
+		openShopItem.give(player);
 		player.sendMessage(Main.prefix + "Your shop item has been succesfully restored.");
 		return true;
 	}
