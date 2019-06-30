@@ -156,22 +156,12 @@ public class ShopInventory{
 	
 	private static ItemStack generateKeepInvItem() {
 		ItemStack keepInvItem = createItemWithName(Material.EXP_BOTTLE, "Other.KeepInventory",ChatColor.AQUA + "Keep Inventory");
-		List<String> lore = keepInvItem.getItemMeta().getLore();
-		lore.add(ChatColor.BLUE + "" + ChatColor.ITALIC + "Permament");
-		ItemMeta meta = keepInvItem.getItemMeta();
-		meta.setLore(lore);
-		keepInvItem.setItemMeta(meta);
-		return keepInvItem;
+		return addOneLore(keepInvItem, ChatColor.BLUE + "" + ChatColor.ITALIC + "Permament");
 	}
 
 	private static ItemStack createBasicItem(Material material) {
 		ItemStack item = new ItemStack(material, 1);
-		ItemMeta meta = item.getItemMeta();
-		List<String> lore = new ArrayList<String>();
-		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt(ConfigLocations.getMaterialLoc(material)) + "$");
-		meta.setLore(lore);
-		item.setItemMeta(meta);
-		return item;		
+		return addOneLore(item, ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt(ConfigLocations.getMaterialLoc(material)) + "$");		
 	}
 	
 	private static ItemStack createGoBackItem() {
@@ -221,5 +211,14 @@ public class ShopInventory{
 	private static ItemStack createEnchantedBook(String ench) {
 		final String priceLoc = ConfigLocations.getEnchLoc(ConfigLocations.getBookName(ench));
 		return createItemWithName(Material.ENCHANTED_BOOK, priceLoc, ChatColor.AQUA + ench);
+	}
+	
+	private static ItemStack addOneLore(ItemStack item, String text) {
+		List<String> lore = item.getItemMeta().getLore();
+		lore.add(text);
+		ItemMeta meta = item.getItemMeta();
+		meta.setLore(lore);
+		item.setItemMeta(meta);
+		return item;
 	}
 }
