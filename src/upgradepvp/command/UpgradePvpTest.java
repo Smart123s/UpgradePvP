@@ -26,9 +26,9 @@ public class UpgradePvpTest implements CommandExecutor{
 				return true;
 			}
 			Main.inGame.add(player);
-			Economy.createEconomyOfPlayer(player);
-			Economy.getEconomyOfPlayer(player).addCommonMoney(Economy.startingMoney);
-			openShopItem.openShopItem(player);
+			Economy eco = new Economy(player);
+			eco.setCommonMoney(Economy.startingMoney);
+			openShopItem.give(player);
 		}
 		else if (args[0].equalsIgnoreCase("leave")) Main.inGame.remove(player);
 		else if (args[0].equalsIgnoreCase("addMoney")) 

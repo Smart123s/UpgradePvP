@@ -17,8 +17,9 @@ public class Economy {
 	private Player playerOfEco;
 	
 	
-	public Economy() {
-		this.commonBalance = 0;
+	public Economy(Player player) {
+		eco.put(player, this);
+		this.playerOfEco = player;
 	}
 	
 	public int getCommonMoney() {
@@ -76,22 +77,12 @@ public class Economy {
 		}
 	}
 	
-	public void setEconomyOfPlayer(Player player) {
-		eco.put(player, this);
-		this.playerOfEco = player;
-	}
-	
 	public void addKeepInv() {
 		this.hasKeepInv = true;
 	}
 	
 	public boolean hasKeepInv() {
 		return this.hasKeepInv;
-	}
-	
-	public static void createEconomyOfPlayer(Player player) {
-		Economy nEco = new Economy();
-		nEco.setEconomyOfPlayer(player);
 	}
 	
 	public static Economy getEconomyOfPlayer(Player player) {
