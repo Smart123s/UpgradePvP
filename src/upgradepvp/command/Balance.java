@@ -14,13 +14,19 @@ public class Balance implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+		//Get the player who executed the command
 		Player player = Bukkit.getPlayer(sender.getName());
+		//Check if the player is in-game
 		if (!Main.inGame.contains(player)) {
+			//Notify the player that they are not in-game
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}
+		//Send messages about the player's common balance
 		player.sendMessage(Main.prefix + "Your current balance: $" + Economy.getEconomyOfPlayer(player).getCommonMoney());
+		//Send messages about the player's safe balance
 		player.sendMessage(Main.prefix + "Your current safe balance: $" + Economy.getEconomyOfPlayer(player).getSafeMoney());
+		//Send messages about the player's inventory's value
 		player.sendMessage(Main.prefix + "Worth of your inventory: $" + CalcInvValue.getInvVal(player));
 		return true;
 	}
