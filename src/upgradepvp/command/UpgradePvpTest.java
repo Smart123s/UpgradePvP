@@ -16,7 +16,10 @@ public class UpgradePvpTest implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		OpenShopItem openShopItem = new OpenShopItem();
 		Player player = Bukkit.getPlayer(sender.getName());
-		if (args[0] == null) return false;
+		if (args.length == 0) {
+			player.sendMessage(Main.prefixError + "Not enough arguemnts.");
+			return true;
+		}
 		else if (args[0].equalsIgnoreCase("join")) {
 			if (Main.inGame.contains(player)){
 				player.sendMessage(Main.prefixError + "You are allready ingame.");
