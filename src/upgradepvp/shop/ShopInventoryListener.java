@@ -42,8 +42,9 @@ public class ShopInventoryListener{
 		
 		case "UpgradePvp Shop > Swords" :
 		case "UpgradePvp Shop > Armor" :
-		case "UpgradePvp Shop > Enchantments" :
 		case "UpgradePvp Shop > Others" :	
+		case "UpgradePvp Shop > Enchantments" :
+		
 			
 			e.setCancelled(true);
 			if (isGoBackItem(e.getCurrentItem())) 
@@ -51,7 +52,7 @@ public class ShopInventoryListener{
 			else if (e.getCurrentItem().getType() == Material.EXP_BOTTLE) 
 				PurchaseItem.buyKeepInv(player);
 			else 
-				PurchaseItem.buyRaw(player, e.getCurrentItem().clone(), false);
+				PurchaseItem.buyRaw(player, e.getCurrentItem().clone(), e.getClickedInventory().getName().equalsIgnoreCase("UpgradePvp Shop > Enchantments"));
 			break;
 		}
 					
