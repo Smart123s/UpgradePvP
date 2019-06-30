@@ -28,7 +28,7 @@ public class Rewarding {
 		if (deadEco.hasKeepInv()) deadEco.storeKeepInvItems();
 		//TODO:Improve Calculation
 		//Calculate the award of the murder
-		int murderAward = (int) Math.round(deadEco.getCommonMoney() + deadEco.getSafeMoney() + CalcInvVal.getInvVal(dead) - CalcInvVal.getInvVal(murder))*0.5);
+		int murderAward = (int) Math.round((deadEco.getCommonMoney() + deadEco.getSafeMoney() + CalcInvValue.getInvVal(dead) - CalcInvValue.getInvVal(murder))*0.5);
 		//Calculate the remaining money of the dead person
 		int deadAward = (int) Math.round((murderEco.getCommonMoney() + murderEco.getSafeMoney() + CalcInvValue.getInvVal(murder) - CalcInvValue.getInvVal(dead))*0.4);
 		//If the dead player doesen't have keepinv, give them more money
