@@ -14,14 +14,16 @@ public class Rewarding {
 		if (e.getEntity().getKiller() == null) return;
 		//Get who was the murder
 		Player murder = Bukkit.getPlayer(e.getEntity().getKiller().getName());
+		
+		//Get the Economy of the dead player
+		Economy deadEco = Economy.getEconomy(dead);
+		//Get the Economy of the murder
+		Economy murderEco = Economy.getEconomy(murder);
+		
 		//Check if both the dead player and the murder are in-game
-		if (!Main.inGame.contains(dead) || !Main.inGame.contains(murder)) return;
+		if (!deadEco.isInGame() || !murderEco.isInGame()) return;
 		//Disable item drops
 		e.getDrops().clear();
-		//Get the Economy of the dead player
-		Economy deadEco = Economy.getEconomyOfPlayer(dead);
-		//Get the Economy of the murder
-		Economy murderEco = Economy.getEconomyOfPlayer(murder);
 		//If the dead player has keepInv, then store their items
 		if (deadEco.hasKeepInv()) deadEco.storeKeepInvItems();
 		

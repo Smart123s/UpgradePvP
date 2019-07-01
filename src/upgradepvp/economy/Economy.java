@@ -6,15 +6,21 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-public class Economy {
+import upgradepvp.map.UPvPMap;
 
-	public static int startingMoney = 250;
-	private int commonBalance = 0;
-	private int safeBalance = 0;
-	private boolean hasKeepInv = false;
+public class Economy {
+	
 	private static HashMap<Player, Economy> eco = new HashMap<Player, Economy>();
-	private Inventory keepInvStorage;
+	public static int startingMoney = 250;
+	
 	private Player playerOfEco;
+	private UPvPMap currentMap;
+	
+	private int commonBalance = startingMoney;
+	private int safeBalance = 0;
+	
+	private boolean hasKeepInv = false;
+	private Inventory keepInvStorage;
 	
 	
 	public Economy(Player player) {
@@ -85,7 +91,7 @@ public class Economy {
 		return this.hasKeepInv;
 	}
 	
-	public static Economy getEconomyOfPlayer(Player player) {
+	public static Economy getEconomy(Player player) {
 		return eco.get(player);
 	}
 	
@@ -107,6 +113,27 @@ public class Economy {
 	
 	public void clearKeepInvStorage() {
 		this.keepInvStorage = null;
+	}
+	
+	public void setCurrentMap(UPvPMap map) {
+		this.currentMap = map;
+	}
+	
+	public UPvPMap getCurrentMap() {
+		return currentMap;
+	}
+	
+	public boolean isInGame() {
+		if (currentMap == null) return false;
+		return currentMap.isInGame(playerOfEco);
+	}
+	
+	public void reset() {
+		this.commonBalance = startingMoney;
+		this.safeBalance = 0;
+		this.hasKeepInv = false;
+		this.keepInvStorage = null;
+		this.currentMap = null;
 	}
 	
 }
