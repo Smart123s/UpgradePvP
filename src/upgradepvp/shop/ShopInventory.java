@@ -12,11 +12,11 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import upgradepvp.economy.ConfigLocations;
-import upgradepvp.main.ConfigManager;
+import upgradepvp.config.ConfigFile;
+import upgradepvp.config.ConfigLocations;
 
 public class ShopInventory{
-	static ConfigManager config = ConfigManager.getInstance();	
+	static ConfigFile priceConfig = ConfigFile.get("price");	
 	
 	//Inventories of the shop
 	public final static Inventory start = generateStartInv();
@@ -168,7 +168,7 @@ public class ShopInventory{
 		ItemStack item = new ItemStack(material, 1);
 		ItemMeta meta = item.getItemMeta();
 		List<String> lore = new ArrayList<String>();
-		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt(ConfigLocations.getMaterialLoc(material)) + "$");
+		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + priceConfig.get().getInt(ConfigLocations.getMaterialLoc(material)) + "$");
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;		
@@ -187,7 +187,7 @@ public class ShopInventory{
 		ItemStack item = new ItemStack(material, 1);
 		ItemMeta meta = item.getItemMeta();
 		List<String> lore = new ArrayList<String>();
-		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt(priceLoc) + "$");
+		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + priceConfig.get().getInt(priceLoc) + "$");
 		meta.setLore(lore);
 		meta.setDisplayName(name);
 		item.setItemMeta(meta);
@@ -212,7 +212,7 @@ public class ShopInventory{
 		meta.setDisplayName("Finish My Game!");
 		meta.addEnchant(Enchantment.ARROW_DAMAGE, 1, true);
 		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + config.getPrice().getInt("Win") + "$");
+		lore.add(ChatColor.GOLD + "Cost: " + ChatColor.YELLOW + priceConfig.get().getInt("Win") + "$");
 		meta.setLore(lore);
 		item.setItemMeta(meta);
 		return item;

@@ -27,7 +27,7 @@ public class Balance implements CommandExecutor{
 		//Send messages about the player's safe balance
 		player.sendMessage(Main.prefix + "Your current safe balance: $" + Economy.getEconomyOfPlayer(player).getSafeMoney());
 		//Send messages about the player's inventory's value
-		player.sendMessage(Main.prefix + "Worth of your inventory: $" + CalcInvValue.getInvVal(player));
+		player.sendMessage(Main.prefix + "Worth of your inventory: $" + CalcInvValue.calc(player));
 		return true;
 	}
 

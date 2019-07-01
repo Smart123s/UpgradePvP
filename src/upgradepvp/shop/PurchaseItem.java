@@ -7,12 +7,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import upgradepvp.config.ConfigFile;
 import upgradepvp.economy.Economy;
-import upgradepvp.main.ConfigManager;
 import upgradepvp.main.Main;
 
 public class PurchaseItem {
-	static ConfigManager config = ConfigManager.getInstance();	
+	static ConfigFile priceConfig = ConfigFile.get("price");	
 	
 	public static void buy(Player player, ItemStack item, int price) {
 		Economy eco = Economy.getEconomyOfPlayer(player);
@@ -49,7 +49,7 @@ public class PurchaseItem {
 	
 	public static void buyKeepInv(Player player) {
 		Economy eco = Economy.getEconomyOfPlayer(player);
-		final int price = config.getPrice().getInt("Other.KeepInventory");
+		final int price = priceConfig.get().getInt("Other.KeepInventory");
 		if (eco.hasKeepInv()) {
 			player.sendMessage(Main.prefixError + "You allready own this product!");
 			return;
@@ -64,7 +64,7 @@ public class PurchaseItem {
 	
 	public static void buyWin(Player player) {
 		Economy eco = Economy.getEconomyOfPlayer(player);
-		int price = ConfigManager.getInstance().getPrice().getInt("Win");
+		int price = priceConfig.get().getInt("Win");
 		if (!eco.hasEnough(price)) {
 			player.sendMessage(Main.prefixError + "You do not have enough money to buy that!");
 		} else {
