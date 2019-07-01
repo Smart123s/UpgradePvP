@@ -1,9 +1,9 @@
 package upgradepvp.main;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.libs.jline.internal.Log;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,9 +19,11 @@ public static String prefixError = "§c[UpgradePvP] §4";
 ConfigManager config = ConfigManager.getInstance();	
 public static ArrayList<Player> inGame = new ArrayList<Player>();
 public static ArrayList<Player> winners = new ArrayList<Player>();
+Logger log = Bukkit.getLogger();
 
 	public void onEnable() {
-		Log.info(prefixPlain + "Starting UpgradePvP version " + getDescription().getVersion().toString());
+		
+		log.info(prefixPlain + "Starting UpgradePvP version " + getDescription().getVersion().toString());
 		
 		config.setup(this);
 		
@@ -34,12 +36,12 @@ public static ArrayList<Player> winners = new ArrayList<Player>();
 		//Register events
 		Bukkit.getPluginManager().registerEvents(new Listeners(), this);
 
-		Log.info(prefixPlain + "Successfully started UpgradePvP version " + getDescription().getVersion().toString());
+		log.info(prefixPlain + "Successfully started UpgradePvP version " + getDescription().getVersion().toString());
 	}
 	
 	public void onDisable() {
-		Log.info(prefixPlain + "Disabling UpgradePvP version " + getDescription().getVersion().toString());
+		log.info(prefixPlain + "Disabling UpgradePvP version " + getDescription().getVersion().toString());
 		
-		Log.info(prefixPlain + "Successfully disabled UpgradePvP version " + getDescription().getVersion().toString());
+		log.info(prefixPlain + "Successfully disabled UpgradePvP version " + getDescription().getVersion().toString());
 	}
 }

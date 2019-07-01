@@ -31,17 +31,19 @@ public class ConfigManager {
        public void setup(Plugin p) {
                cfile = new File(p.getDataFolder(), "config.yml");
                config = p.getConfig();
-               //config.options().copyDefaults(true);
-               //saveConfig();
+               config.options().copyDefaults(true);
+               saveConfig();
                
-               //price.options().copyDefaults(true);
-               //savePrice();
+               pfile = new File(p.getDataFolder(), "price.yml");
+               price = YamlConfiguration.loadConfiguration(pfile);
+               price.options().copyDefaults(true);
+               savePrice();
               
                if (!p.getDataFolder().exists()) {
                        p.getDataFolder().mkdir();
                }
               
-               pfile = new File(p.getDataFolder(), "price.yml");
+               
               
                if (!pfile.exists()) {
                        try {
@@ -51,8 +53,7 @@ public class ConfigManager {
                                Bukkit.getServer().getLogger().severe(ChatColor.RED + "Could not create price.yml!");
                        }
                }
-              
-               price = YamlConfiguration.loadConfiguration(pfile);
+               
        }
       
        public FileConfiguration getPrice() {
