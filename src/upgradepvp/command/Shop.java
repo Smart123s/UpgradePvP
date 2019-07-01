@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import upgradepvp.economy.Economy;
 import upgradepvp.main.Main;
 import upgradepvp.shop.OpenShopItem;
 
@@ -15,7 +16,7 @@ public class Shop implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		OpenShopItem openShopItem = new OpenShopItem();
 		Player player = Bukkit.getPlayer(sender.getName());
-		if (!Main.inGame.contains(player)) {
+		if (!Economy.getEconomy(player).isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}

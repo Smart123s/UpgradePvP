@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import upgradepvp.config.ConfigLocations;
+import upgradepvp.economy.Economy;
 import upgradepvp.main.Main;
 
 public class AddEnchantment {
@@ -16,7 +17,7 @@ public class AddEnchantment {
 		
 		//Check if we should start the enchanting process
 		if (e.getClickedInventory() == null
-		 || !Main.inGame.contains(Bukkit.getPlayer(e.getWhoClicked().getName()))
+		 || !Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())).isInGame()
 		 || e.getClickedInventory().getName().contains("UpgradePvp Shop > ")
 		 || e.getCurrentItem().getType() != Material.ENCHANTED_BOOK
 		 || Bukkit.getPlayer(e.getWhoClicked().getName()).getItemOnCursor().getType() == Material.AIR) //TODO: Fix a glitch, when this returns true in the players inventory (opened by pressing e)

@@ -6,12 +6,14 @@ commands:
   UpgradePvpTest:
     usage: /<command>
     description: A test command for UpgradePvp
+    aliases: [upt]
   Shop:
     usage: /<command>
     description: Fix the shop item.
   Balance:
-    usage: /<command>
+    usage: /<command> [player]
     description: Check your balance.
+    aliases: [bal]
   Safe:
-    usage: /<command>
+    usage: /<command> <amount|all>
     description: Move money to Safe Balance.

@@ -14,7 +14,6 @@ public class Main extends JavaPlugin{
 public static String prefixPlain = "[UpgradePvP] ";
 public static String prefix = "§b[UpgradePvP] §3";
 public static String prefixError = "§c[UpgradePvP] §4";
-public static ArrayList<Player> inGame = new ArrayList<Player>();
 public static ArrayList<Player> winners = new ArrayList<Player>();
 Logger log = Bukkit.getLogger();
 

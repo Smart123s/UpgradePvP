@@ -7,7 +7,7 @@ import upgradepvp.main.Main;
 
 public class UKeepInventory {
 	public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
-		Economy eco = Economy.getEconomyOfPlayer(e.getPlayer());
+		Economy eco = Economy.getEconomy(e.getPlayer());
 		
 		if (!eco.hasKeepInv()) return;
 		

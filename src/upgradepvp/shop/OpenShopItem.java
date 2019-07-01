@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import upgradepvp.main.Main;
+import upgradepvp.economy.Economy;
 
 public class OpenShopItem {
 	final static ItemStack shopItem = generateItem();
@@ -28,7 +28,7 @@ public class OpenShopItem {
 	}
 	
 	public void onPlayerInteractEvent(PlayerInteractEvent e) {
-		if (!Main.inGame.contains(e.getPlayer())) return;
+		if (!Economy.getEconomy(e.getPlayer()).isInGame()) return;
 		try {
 		if (e.getItem().getItemMeta().getDisplayName() == shopItem.getItemMeta().getDisplayName() && e.getItem().getType() == Material.CHEST) {
 			e.setCancelled(true);
@@ -43,7 +43,7 @@ public class OpenShopItem {
 	//DISABLED IN THE Listeners CLASS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public void onInventoryCLickEvent(InventoryClickEvent e) {
 		if (e.getClickedInventory() == null) return;
-		if (!Main.inGame.contains(Bukkit.getPlayer(e.getWhoClicked().getName()))) return;
+		if (!Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())).isInGame()) return;
 		if (e.getClickedInventory().contains(shopItem) && e.getSlot() == 8) {
 			//if (!e.getWhoClicked().getOpenInventory().getTitle().contains("UpgradePvp Shop >")) e.getInventory().setItem(8, shopItem);
 			e.setCancelled(true);

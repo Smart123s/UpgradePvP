@@ -14,11 +14,11 @@ public class Safe implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		Player player = Bukkit.getServer().getPlayer(sender.getName());
-		if (!Main.inGame.contains(player)) {
+		Economy eco = Economy.getEconomy(player);
+		if (!eco.isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}
-		Economy eco = Economy.getEconomyOfPlayer(player);
 		if (args[0].equalsIgnoreCase("all")) {
 			player.sendMessage(Main.prefix + "$" + eco.getCommonMoney() + " has been taken from your Common Balance.");
 			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*0.6) + " has been added to your Safe Balance.");
