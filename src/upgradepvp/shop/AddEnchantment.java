@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
-import upgradepvp.economy.ConfigLocations;
+import upgradepvp.config.ConfigLocations;
 import upgradepvp.main.Main;
 
 public class AddEnchantment {
