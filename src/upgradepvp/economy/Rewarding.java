@@ -31,11 +31,13 @@ public class Rewarding {
 		//Calculate the award of the murder
 		int murderReward = (int) Math.round((deadEco.getCommonMoney() + deadEco.getSafeMoney() + deadInv - murderInv)*0.5);
 		//Calculate the remaining money of the dead person
-		int deadReward = (int) Math.round((murderEco.getCommonMoney() + murderEco.getSafeMoney() + murderInv - deadInv)*0.4);
+		int deadReward = (int) Math.round((murderEco.getCommonMoney() + murderEco.getSafeMoney() + murderInv - deadInv)*0.4)-deadEco.getSafeMoney();
 		//If the dead player doesen't have keepinv, give them more money
 		if (!deadEco.hasKeepInv()) deadReward += (int) (Math.round(CalcInvValue.calc(dead)*0.25));
 		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
 		if (deadReward < Economy.startingMoney) deadReward = Economy.startingMoney;
+		//Make sure the murderRewrad isn't negative
+		if (murderReward < 0) murderReward = 0;
 		//Add murderReward to the murder's common balance
 		murderEco.addCommonMoney(murderReward);
 		//Set the dead player's common balance to deadReward
