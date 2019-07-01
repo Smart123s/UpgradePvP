@@ -16,19 +16,21 @@ public class Balance implements CommandExecutor{
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		//Get the player who executed the command
 		Player player = Bukkit.getPlayer(sender.getName());
+		Economy eco = Economy.getEconomy(player);
 		//Check if the player is in-game
-		if (!Main.inGame.contains(player)) {
+		if (!eco.isInGame()) {
 			//Notify the player that they are not in-game
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}
 		//Send messages about the player's common balance
-		player.sendMessage(Main.prefix + "Your current balance: $" + Economy.getEconomyOfPlayer(player).getCommonMoney());
+		player.sendMessage(Main.prefix + "Your current balance: $" + eco.getCommonMoney());
 		//Send messages about the player's safe balance
-		player.sendMessage(Main.prefix + "Your current safe balance: $" + Economy.getEconomyOfPlayer(player).getSafeMoney());
+		player.sendMessage(Main.prefix + "Your current safe balance: $" + eco.getSafeMoney());
 		//Send messages about the player's inventory's value
 		player.sendMessage(Main.prefix + "Worth of your inventory: $" + CalcInvValue.calc(player));
 		return true;
+		//TODO: Add support for requesting other player's balance
 	}
 
 }

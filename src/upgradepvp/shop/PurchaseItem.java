@@ -15,7 +15,7 @@ public class PurchaseItem {
 	static ConfigFile priceConfig = ConfigFile.get("price");	
 	
 	public static void buy(Player player, ItemStack item, int price) {
-		Economy eco = Economy.getEconomyOfPlayer(player);
+		Economy eco = Economy.getEconomy(player);
 		if (!eco.hasEnough(price)) {
 			player.sendMessage(Main.prefixError + "You don't have enough money to purchase this product!");
 			return;
@@ -48,7 +48,7 @@ public class PurchaseItem {
 	}
 	
 	public static void buyKeepInv(Player player) {
-		Economy eco = Economy.getEconomyOfPlayer(player);
+		Economy eco = Economy.getEconomy(player);
 		final int price = priceConfig.get().getInt("Other.KeepInventory");
 		if (eco.hasKeepInv()) {
 			player.sendMessage(Main.prefixError + "You allready own this product!");
@@ -63,16 +63,15 @@ public class PurchaseItem {
 	}
 	
 	public static void buyWin(Player player) {
-		Economy eco = Economy.getEconomyOfPlayer(player);
+		Economy eco = Economy.getEconomy(player);
 		int price = priceConfig.get().getInt("Win");
 		if (!eco.hasEnough(price)) {
 			player.sendMessage(Main.prefixError + "You do not have enough money to buy that!");
 		} else {
 			eco.removeMoney(price);
-			Main.winners.add(player);
 			player.setGameMode(GameMode.SPECTATOR);
 			Bukkit.broadcastMessage(Main.prefix + "Player " + player.getName() + " has just finished the game! Place: " + (Main.winners.indexOf(player)+1));
-			Main.inGame.remove(player);
+			//TODO: Remove the player from the Map's ingame list && add to it's winners list
 		}
 	}
 	
