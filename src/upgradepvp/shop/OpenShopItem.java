@@ -23,12 +23,12 @@ public class OpenShopItem {
 		return shopItemHere;
 	}
 	
-	public void give(Player player) {
+	public static void give(Player player) {
 		player.getInventory().setItem(8, shopItem);
 	}
 	
 	public void onPlayerInteractEvent(PlayerInteractEvent e) {
-		if (!Economy.getEconomy(e.getPlayer()).isInGame()) return;
+		if (Economy.getEconomy(e.getPlayer()) == null || !Economy.getEconomy(e.getPlayer()).isInGame()) return;
 		try {
 		if (e.getItem().getItemMeta().getDisplayName() == shopItem.getItemMeta().getDisplayName() && e.getItem().getType() == Material.CHEST) {
 			e.setCancelled(true);
@@ -43,7 +43,7 @@ public class OpenShopItem {
 	//DISABLED IN THE Listeners CLASS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	public void onInventoryCLickEvent(InventoryClickEvent e) {
 		if (e.getClickedInventory() == null) return;
-		if (!Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())).isInGame()) return;
+		if (Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())) == null || !Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())).isInGame()) return;
 		if (e.getClickedInventory().contains(shopItem) && e.getSlot() == 8) {
 			//if (!e.getWhoClicked().getOpenInventory().getTitle().contains("UpgradePvp Shop >")) e.getInventory().setItem(8, shopItem);
 			e.setCancelled(true);

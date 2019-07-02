@@ -13,9 +13,13 @@ public class Safe implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Main.prefixPlain + "Only players can execute this command!");
+			return true;
+		}
 		Player player = Bukkit.getServer().getPlayer(sender.getName());
 		Economy eco = Economy.getEconomy(player);
-		if (!eco.isInGame()) {
+		if (eco == null || !eco.isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}

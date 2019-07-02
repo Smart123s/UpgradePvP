@@ -17,6 +17,7 @@ public class AddEnchantment {
 		
 		//Check if we should start the enchanting process
 		if (e.getClickedInventory() == null
+		 || Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())) == null
 		 || !Economy.getEconomy(Bukkit.getPlayer(e.getWhoClicked().getName())).isInGame()
 		 || e.getClickedInventory().getName().contains("UpgradePvp Shop > ")
 		 || e.getCurrentItem().getType() != Material.ENCHANTED_BOOK

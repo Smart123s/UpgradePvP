@@ -14,13 +14,16 @@ public class Shop implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
-		OpenShopItem openShopItem = new OpenShopItem();
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Main.prefixPlain + "Only players can execute this command!");
+			return true;
+		}
 		Player player = Bukkit.getPlayer(sender.getName());
-		if (!Economy.getEconomy(player).isInGame()) {
+		if (Economy.getEconomy(player) == null || !Economy.getEconomy(player).isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;
 		}
-		openShopItem.give(player);
+		OpenShopItem.give(player);
 		player.sendMessage(Main.prefix + "Your shop item has been succesfully restored.");
 		return true;
 	}

@@ -14,11 +14,15 @@ public class Balance implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Main.prefixPlain + "Only players can execute this command!");
+			return true;
+		}
 		//Get the player who executed the command
 		Player player = Bukkit.getPlayer(sender.getName());
 		Economy eco = Economy.getEconomy(player);
 		//Check if the player is in-game
-		if (!eco.isInGame()) {
+		if (eco == null || !eco.isInGame()) {
 			//Notify the player that they are not in-game
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;

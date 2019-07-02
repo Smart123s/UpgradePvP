@@ -17,3 +17,7 @@ commands:
   Safe:
     usage: /<command> <amount|all>
     description: Move money to Safe Balance.
+  UPvP:
+    usage: /<command> 
+    description: Interact with the UpgradePvP plugin.
+    aliases: [UpgradePvP]
