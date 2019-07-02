@@ -9,7 +9,7 @@ public class UKeepInventory {
 	public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
 		Economy eco = Economy.getEconomy(e.getPlayer());
 		
-		if (!eco.hasKeepInv()) return;
+		if (eco == null || !eco.hasKeepInv()) return;
 		
 		Inventory pInv = e.getPlayer().getInventory();
 		Inventory kInv = eco.getKeepInvItems();
