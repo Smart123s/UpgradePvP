@@ -21,7 +21,7 @@ public class Rewarding {
 		Economy murderEco = Economy.getEconomy(murder);
 		
 		//Check if both the dead player and the murder are in-game
-		if (!deadEco.isInGame() || !murderEco.isInGame()) return;
+		if (deadEco == null || murderEco == null || !deadEco.isInGame() || !murderEco.isInGame()) return;
 		//Disable item drops
 		e.getDrops().clear();
 		//If the dead player has keepInv, then store their items
