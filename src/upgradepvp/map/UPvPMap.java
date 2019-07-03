@@ -38,6 +38,7 @@ public class UPvPMap {
 	private ConfigFile storage;
 	private ArrayList<Player> inGame = new ArrayList<Player>();
 	private static HashMap<String, UPvPMap> mapName = new HashMap<String, UPvPMap>();
+	private ArrayList<Player> winners = new ArrayList<Player>();
 	
 	public UPvPMap(String name) {
 		this.name = name;
@@ -111,15 +112,34 @@ public class UPvPMap {
 		//Notify the player about the successful join
 		player.sendMessage(Main.prefix + "Successfully joined game " + name);
 		
-		//TODO: Add openShopItem when the game starts
 	}
 	
 	public void startGame() {
+		//Complete the following actions on all players of the game
 		for (Player player : inGame) {
+			//Teleport to spawn
 			player.teleport(spawn);
+			//Give an openShopItem
 			OpenShopItem.give(player);
+			//Tell them that the game has started
 			player.sendMessage(Main.prefix + "The game has started!");
 		}
+	}
+	
+	public void playerFinish(Player player) {
+		this.winners.add(player);
+		player.setGameMode(GameMode.SPECTATOR);
+		sendMessageAll(Main.prefix + "Player " + player.getName() + " has just finished the game! Place: " + winners.size() + 1);
+	}
+	
+	public void reset() {
+		this.inGame.clear();
+		this.winners.clear();
+	}
+	
+	public void sendMessageAll(String message) {
+		for (Player player : inGame)
+			player.sendMessage(message);
 	}
 	
 	public static boolean exists(String name) {

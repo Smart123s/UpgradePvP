@@ -33,7 +33,7 @@ public class UPvPBaseCommand implements CommandExecutor{
 			sender.sendMessage(Main.prefixPlain + "Only players can execute this command!");
 			return true;
 		} else if (args.length == 0) {
-			Bukkit.getPlayer(sender.getName()).sendMessage(Main.prefixError + "/UPvP <create|setspawn|setlobby>");
+			Bukkit.getPlayer(sender.getName()).sendMessage(Main.prefixError + "/UPvP <join|leave|start|create|setspawn|setlobby>");
 		}
 		//TODO: Check permissions
 		Player player = Bukkit.getPlayer(sender.getName());

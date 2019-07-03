@@ -35,10 +35,6 @@ public class UpgradePvpTest implements CommandExecutor{
 			player.sendMessage(Main.prefixError + "Not enough arguemnts.");
 			return true;
 		}
-		else if (args[0].equalsIgnoreCase("join")) {
-			//TODO: Create join
-		}
-		else if (args[0].equalsIgnoreCase("leave")) ;//TODO: Create leave
 		else if (args[0].equalsIgnoreCase("addMoney")) 
 			Economy.getEconomy(player).addCommonMoney(Integer.valueOf(args[1]));
 		
