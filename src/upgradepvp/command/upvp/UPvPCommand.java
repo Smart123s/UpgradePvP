@@ -25,7 +25,7 @@ import org.bukkit.entity.Player;
 
 import upgradepvp.main.Main;
 
-public class UPvPBaseCommand implements CommandExecutor{
+public class UPvPCommand implements CommandExecutor{
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
@@ -51,4 +51,5 @@ public class UPvPBaseCommand implements CommandExecutor{
 		
 		return true;
 	}
+	
 }

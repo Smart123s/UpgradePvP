@@ -31,6 +31,11 @@ public class UpgradePvpTest implements CommandExecutor{
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		Player player = Bukkit.getPlayer(sender.getName());
+		//Permission check
+		if (!player.hasPermission("upgradepvp.test")) {
+			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
+			return true;
+		}
 		if (args.length == 0) {
 			player.sendMessage(Main.prefixError + "Not enough arguemnts.");
 			return true;

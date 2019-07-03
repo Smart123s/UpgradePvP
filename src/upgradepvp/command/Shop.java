@@ -36,6 +36,11 @@ public class Shop implements CommandExecutor{
 			return true;
 		}
 		Player player = Bukkit.getPlayer(sender.getName());
+		//Permission check
+		if (!player.hasPermission("upgradepvp.shop")) {
+			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
+			return true;
+		}
 		if (Economy.getEconomy(player) == null || !Economy.getEconomy(player).isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");
 			return true;

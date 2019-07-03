@@ -25,7 +25,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import upgradepvp.command.*;
-import upgradepvp.command.upvp.UPvPBaseCommand;
+import upgradepvp.command.upvp.UPvPCommand;
 import upgradepvp.config.*;
 import upgradepvp.map.UPvPMap;
 
@@ -52,7 +52,7 @@ Logger log = Bukkit.getLogger();
 		getCommand("Shop").setExecutor(new Shop());
 		getCommand("Balance").setExecutor(new Balance());
 		getCommand("Safe").setExecutor(new Safe());
-		getCommand("UPvP").setExecutor(new UPvPBaseCommand());
+		getCommand("UPvP").setExecutor(new UPvPCommand());
 		
 		//Register events
 		Bukkit.getPluginManager().registerEvents(new Listeners(), this);
