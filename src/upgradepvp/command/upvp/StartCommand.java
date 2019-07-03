@@ -25,6 +25,11 @@ import upgradepvp.map.UPvPMap;
 public class StartCommand {
 
 	public static void run(String[] args, Player player) {
+		//Permission check
+		if (!player.hasPermission("upgradepvp.map.start")) {
+			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
+			return;
+		}
 		if (args.length == 2) {
 			if (!UPvPMap.exists(args[1])) {
 				player.sendMessage(Main.prefixError + "Map " + args[1] + " does not exist!");
