@@ -35,7 +35,6 @@ public class UPvPCommand implements CommandExecutor{
 		} else if (args.length == 0) {
 			Bukkit.getPlayer(sender.getName()).sendMessage(Main.prefixError + "/UPvP <join|leave|start|create|setspawn|setlobby>");
 		}
-		//TODO: Check permissions
 		Player player = Bukkit.getPlayer(sender.getName());
 		if (args[0].equalsIgnoreCase("create")) 
 			CreateCommand.run(args, player);
