@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import upgradepvp.command.*;
@@ -34,7 +33,6 @@ public class Main extends JavaPlugin{
 public static String prefixPlain = "[UpgradePvP] ";
 public static String prefix = "§b[UpgradePvP] §3";
 public static String prefixError = "§c[UpgradePvP] §4";
-public static ArrayList<Player> winners = new ArrayList<Player>();
 public static ArrayList<UPvPMap> maps = new ArrayList<UPvPMap>();
 Logger log = Bukkit.getLogger();
 

@@ -153,4 +153,8 @@ public class Economy {
 		this.currentMap = null;
 	}
 	
+	public Player getPlayer() {
+		return this.playerOfEco;
+	}
+	
 }
