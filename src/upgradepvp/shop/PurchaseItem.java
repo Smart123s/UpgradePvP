@@ -17,8 +17,6 @@
 */
 package upgradepvp.shop;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -86,9 +84,7 @@ public class PurchaseItem {
 			player.sendMessage(Main.prefixError + "You do not have enough money to buy that!");
 		} else {
 			eco.removeMoney(price);
-			player.setGameMode(GameMode.SPECTATOR);
-			Bukkit.broadcastMessage(Main.prefix + "Player " + player.getName() + " has just finished the game! Place: " + (Main.winners.indexOf(player)+1));
-			//TODO: Remove the player from the Map's ingame list && add to it's winners list
+			eco.getCurrentMap().playerFinish(player);
 		}
 	}
 	
