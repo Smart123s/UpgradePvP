@@ -52,6 +52,12 @@ permissions:
   upgradepvp.map.start:
     description: Gives access to start a map
     default: op
+  upgradepvp.map.*:
+    description: Gives access to create new maps configure and start them
+    default: op
+    children:
+      upgradepvp.map: true
+      upgradepvp.map.start: true
   upgradepvp.join:
     description: Gives access to join a map
     default: true
