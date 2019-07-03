@@ -35,6 +35,11 @@ public class Safe implements CommandExecutor{
 			return true;
 		}
 		Player player = Bukkit.getServer().getPlayer(sender.getName());
+		//Permission check
+		if (!player.hasPermission("upgradepvp.safe")) {
+			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
+			return true;
+		}
 		Economy eco = Economy.getEconomy(player);
 		if (eco == null || !eco.isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");

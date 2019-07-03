@@ -40,38 +40,57 @@ public class Balance implements CommandExecutor{
 		
 		//Create an economy
 		Economy eco = null;
-		//Your or the name of the requested player in genitive
-		String dispNameGen = "";
-		//You or the name of the requested player plus be
-		String dispNameBe = "";
 		
 		//Initialize the variables according to whose balance you are requesting
 		if (args.length == 0) {
+			//Permission check
+			if (!player.hasPermission("upgradepvp.balance")) {
+				player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
+				return true;
+			}
+			
 			eco = Economy.getEconomy(player);
-			dispNameGen = "Your";
-			dispNameBe = "You are";
+			
+			//Check if the player is in-game
+			if (eco == null || !eco.isInGame()) {
+				//Notify the player that they are not in-game
+				player.sendMessage(Main.prefixError + "You are not ingame");
+				return true;
+			}
+			
+			//Send messages about the player's common balance
+			player.sendMessage(Main.prefix + "Your current balance: $" + eco.getCommonMoney());
+			//Send messages about the player's safe balance
+			player.sendMessage(Main.prefix + "Your current safe balance: $" + eco.getSafeMoney());
+			//Send messages about the player's inventory's value
+			player.sendMessage(Main.prefix + "Worth of your inventory: $" + CalcInvValue.calc(eco.getPlayer()));
 			
 		} else if (args.length == 1) {
+			//Permission check
+			if (!player.hasPermission("upgradepvp.balance.other")) {
+				player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
+				return true;
+			}
 			eco = Economy.getEconomy(Bukkit.getPlayer(args[0]));
-			dispNameGen = args[0] + "'s";
-			dispNameBe = args[0] + " is";
+			
+			//Check if the player is in-game
+			if (eco == null || !eco.isInGame()) {
+				//Notify the player that they are not in-game
+				player.sendMessage(Main.prefixError + args[0] + " is not ingame");
+				return true;
+			}
+			
+			//Send messages about the player's common balance
+			player.sendMessage(Main.prefix + args[0] + "'s current balance: $" + eco.getCommonMoney());
+			//Send messages about the player's safe balance
+			player.sendMessage(Main.prefix + args[0] + "'s current safe balance: $" + eco.getSafeMoney());
+			//Send messages about the player's inventory's value
+			player.sendMessage(Main.prefix + "Worth of " + args[0] + "'s inventory: $" + CalcInvValue.calc(eco.getPlayer()));
+
 		} else {
 			player.sendMessage(Main.prefixError + "/balance [player]");
 		}
-		
-		//Check if the player is in-game
-		if (eco == null || !eco.isInGame()) {
-			//Notify the player that they are not in-game
-			player.sendMessage(Main.prefixError + dispNameBe + " not ingame.");
-			return true;
-		}
 
-		//Send messages about the player's common balance
-		player.sendMessage(Main.prefix + dispNameGen + " current balance: $" + eco.getCommonMoney());
-		//Send messages about the player's safe balance
-		player.sendMessage(Main.prefix + dispNameGen + " current safe balance: $" + eco.getSafeMoney());
-		//Send messages about the player's inventory's value
-		player.sendMessage(Main.prefix + "Worth of " + dispNameGen + " inventory: $" + CalcInvValue.calc(eco.getPlayer()));
 		return true;
 	}
 

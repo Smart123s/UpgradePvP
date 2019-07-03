@@ -2,6 +2,7 @@ name: UpgradePvP
 version: 1.0
 main: upgradepvp.main.Main
 author: Smart123s
+description: The UpgradePvP plugin for Minecraft.
 commands:
   UpgradePvpTest:
     usage: /<command>
@@ -18,6 +19,39 @@ commands:
     usage: /<command> <amount|all>
     description: Move money to Safe Balance.
   UPvP:
-    usage: /<command> 
+    usage: /<command>
     description: Interact with the UpgradePvP plugin.
     aliases: [UpgradePvP]
+permissions:
+  upgradepvp.balance:
+    description: Gives access to request your own balance
+    default: true
+  upgradepvp.balance.other:
+    description: Gives access to request other player's balance
+    default: op
+    children:
+      upgradepvp.balance: true
+  upgradepvp.balance.*:
+    description: Gives access to request anyone's balance
+    default: op
+    children:
+      upgradepvp.balance: true
+      upgradepvp.balance.other: true
+  upgradepvp.shop:
+    description: Gives access to reset the Shop item
+    default: true
+  upgradepvp.safe:
+    description: Gives access to put money into the safe
+    default: true
+  upgradepvp.test:
+    description: Gives access to the test command
+    default: op
+  upgradepvp.map:
+    description: Gives access to create new maps and configure them
+    default: op
+  upgradepvp.map.start:
+    description: Gives access to start a map
+    default: op
+  upgradepvp.join:
+    description: Gives access to join a map
+    default: true
