@@ -1,6 +1,6 @@
 /*
     This file is part of UpgradePvP.
-	Copyright (C) 2019 Péter Tombor
+	Copyright (C) 2019 PÃ©ter Tombor
 
     UpgradePvP is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -50,7 +50,7 @@ public class Rewarding {
 		//Calculate the award of the murder
 		int murderReward = (int) Math.round((deadEco.getCommonMoney() + deadEco.getSafeMoney() + deadInv - murderInv)*0.5);
 		//Calculate the remaining money of the dead person
-		int deadReward = (int) Math.round((murderEco.getCommonMoney() + murderEco.getSafeMoney() + murderInv - deadInv)*0.4)-deadEco.getSafeMoney();
+		int deadReward = (int) Math.round((murderEco.getCommonMoney() + murderEco.getSafeMoney() + murderInv - deadInv)*0.4) - (deadEco.getSafeMoney() * 0.5);
 		//If the dead player doesen't have keepinv, give them more money
 		if (!deadEco.hasKeepInv()) deadReward += (int) (Math.round(CalcInvValue.calc(dead)*0.25));
 		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
