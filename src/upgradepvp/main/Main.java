@@ -40,8 +40,9 @@ Logger log = Bukkit.getLogger();
 		
 		log.info(prefixPlain + "Starting UpgradePvP version " + getDescription().getVersion().toString());
 		
-		//Initialize ConfigFile.plugin
+		//Initialize plugin variables
 		ConfigFile.plugin = this;
+		UPvPMap.plugin = this;
 		
 		//Create Config Files
 		new ConfigFile("config");
@@ -71,4 +72,5 @@ Logger log = Bukkit.getLogger();
 		
 		log.info(prefixPlain + "Successfully disabled UpgradePvP version " + getDescription().getVersion().toString());
 	}
+	
 }
