@@ -20,10 +20,13 @@ package upgradepvp.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitScheduler;
 
 import upgradepvp.config.ConfigFile;
 import upgradepvp.economy.Economy;
@@ -32,6 +35,7 @@ import upgradepvp.shop.OpenShopItem;
 
 public class UPvPMap {
 
+	public static Plugin plugin;
 	private String name;
 	private Location lobby;
 	private Location spawn;
@@ -39,6 +43,7 @@ public class UPvPMap {
 	private ArrayList<Player> inGame = new ArrayList<Player>();
 	private static HashMap<String, UPvPMap> mapName = new HashMap<String, UPvPMap>();
 	private ArrayList<Player> winners = new ArrayList<Player>();
+	private static int respawnProt = new ConfigFile("config").get().getInt("respawn-protection");
 	
 	public UPvPMap(String name) {
 		this.name = name;
@@ -129,7 +134,7 @@ public class UPvPMap {
 	public void playerFinish(Player player) {
 		this.winners.add(player);
 		player.setGameMode(GameMode.SPECTATOR);
-		sendMessageAll(Main.prefix + "Player " + player.getName() + " has just finished the game! Place: " + winners.size() + 1);
+		sendMessageAll(Main.prefix + "Player " + player.getName() + " has just finished the game! Place: " + winners.size());
 	}
 	
 	public void reset() {
@@ -149,4 +154,23 @@ public class UPvPMap {
 		return false;
 	}
 	//TODO: Implement gameState
+	
+	public void performSpawnProtectionActions(Player player) {
+		Economy eco = Economy.getEconomy(player);
+		if (eco == null) return;
+		eco.setInvulnerable(true);
+		player.sendMessage(Main.prefix + "You are now invulnerable for " + respawnProt + " seconds");
+		
+		BukkitScheduler scheduler = Bukkit.getServer().getScheduler();
+        scheduler.scheduleSyncDelayedTask(plugin, new Runnable() {
+            @Override
+            public void run() {
+            	if (!eco.isInvulnerable()) return;
+                eco.setInvulnerable(false);
+                player.sendMessage(Main.prefix + "Your invulnerability has expired");
+            }
+        }, respawnProt*20L);
+		
+	}
+	
 }

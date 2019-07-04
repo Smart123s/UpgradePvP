@@ -19,6 +19,7 @@ package upgradepvp.main;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -26,8 +27,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
+import upgradepvp.economy.Economy;
 import upgradepvp.economy.Rewarding;
 import upgradepvp.economy.UKeepInventory;
+import upgradepvp.map.PlayerDamageEvent;
+import upgradepvp.map.UPvPMap;
 import upgradepvp.shop.AddEnchantment;
 import upgradepvp.shop.OpenShopItem;
 import upgradepvp.shop.ShopInventoryListener;
@@ -39,6 +43,7 @@ public class Listeners implements Listener{
 	private Rewarding rewarding = new Rewarding();
 	private AddEnchantment addEnchantment = new AddEnchantment();
 	private UKeepInventory uKeepInventory = new UKeepInventory();
+	private PlayerDamageEvent playerDamageEvent = new PlayerDamageEvent();
 	
 	@EventHandler
 	public void onInventoryClickEvent(InventoryClickEvent e) {
@@ -73,5 +78,12 @@ public class Listeners implements Listener{
 	public void onPlayerRespavnEvent(PlayerRespawnEvent e) {
 		uKeepInventory.onPlayerRespawnEvent(e);
 		openShopItem.onPlayerRespawnEvent(e);
+		UPvPMap map = Economy.getEconomy(e.getPlayer()).getCurrentMap();
+		if (map != null) map.performSpawnProtectionActions(e.getPlayer());
+	}
+	
+	@EventHandler
+	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
+		playerDamageEvent.onEntityDamageByEntityEvent(e);
 	}
 }

@@ -39,6 +39,8 @@ public class Economy {
 	private boolean hasKeepInv = false;
 	private Inventory keepInvStorage;
 	
+	private boolean invulnerable = false;
+	
 	
 	public Economy(Player player) {
 		eco.put(player, this);
@@ -155,6 +157,14 @@ public class Economy {
 	
 	public Player getPlayer() {
 		return this.playerOfEco;
+	}
+	
+	public boolean isInvulnerable() {
+		return this.invulnerable;
+	}
+	
+	public void setInvulnerable(boolean val) {
+		this.invulnerable = val;
 	}
 	
 }
