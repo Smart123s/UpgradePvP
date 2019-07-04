@@ -61,14 +61,14 @@ public class Rewarding {
 		murderEco.addCommonMoney(murderReward);
 		//Set the dead player's common balance to deadReward
 		deadEco.setCommonMoney(deadReward);
-		//Send a message to the murder about their Reward
-		murder.sendMessage(Main.prefix + "$" + murderReward + " has been added to your account");
 		//Send a message to the murder about the dead player's remaining money
 		murder.sendMessage(Main.prefix + dead.getName() + "'s new balance is $" + deadReward);
-		//Send a message to the dead player about their remaining money
-		dead.sendMessage(Main.prefix + "$" + deadReward + " is your new balance");
+		//Send a message to the murder about their Reward
+		murder.sendMessage(Main.prefix + "$" + murderReward + " has been added to your account");
 		//Send a message to the dead player about the murder's reward
 		dead.sendMessage(Main.prefix + "$" + murderReward + " has benn added to " + murder.getName() + "'s account");
+		//Send a message to the dead player about their remaining money
+		dead.sendMessage(Main.prefix + "$" + deadReward + " is your new balance");
 	}
 	
 }
