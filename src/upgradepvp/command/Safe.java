@@ -39,7 +39,12 @@ public class Safe implements CommandExecutor{
 		if (!player.hasPermission("upgradepvp.safe")) {
 			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
 			return true;
+		} else if (args.length != 1) {
+			player.sendMessage(Main.prefixError + "/safe <amount|all>");
+			return true;
 		}
+		
+		
 		Economy eco = Economy.getEconomy(player);
 		if (eco == null || !eco.isInGame()) {
 			player.sendMessage(Main.prefixError + "You are not ingame.");
