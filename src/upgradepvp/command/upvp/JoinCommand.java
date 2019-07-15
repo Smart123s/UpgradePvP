@@ -22,9 +22,14 @@ import org.bukkit.entity.Player;
 import upgradepvp.main.Main;
 import upgradepvp.map.UPvPMap;
 
-public class JoinCommand {
-
-	public static void run(String[] args, Player player) {
+public class JoinCommand  extends UPvPCommand{
+	
+	public JoinCommand() {
+		super("Join");
+	}
+	
+	@Override
+	public void run(String[] args, Player player) {
 		//Permission check
 		if (!player.hasPermission("upgradepvp.join")) {
 			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");

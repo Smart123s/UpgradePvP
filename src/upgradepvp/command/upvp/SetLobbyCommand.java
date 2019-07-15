@@ -22,9 +22,14 @@ import org.bukkit.entity.Player;
 import upgradepvp.main.Main;
 import upgradepvp.map.UPvPMap;
 
-public class SetLobbyCommand {
+public class SetLobbyCommand extends UPvPCommand{
 
-	public static void run(String[] args, Player player) {
+	protected SetLobbyCommand() {
+		super("SetLobby");
+	}
+
+	@Override
+	public void run(String[] args, Player player) {
 		//Permission check
 		if (!player.hasPermission("upgradepvp.map")) {
 			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
