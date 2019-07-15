@@ -17,34 +17,34 @@
 */
 package upgradepvp.command.upvp;
 
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import upgradepvp.main.Main;
-import upgradepvp.map.UPvPMap;
 
-public class CreateCommand extends UPvPCommand{
-	
-	public CreateCommand() {
-		super("Create");
-	}
-	
+public class OnUPvPCommand implements CommandExecutor{
+
 	@Override
-	public void run(String[] args, Player player) {
-		//Permission check
-		if (!player.hasPermission("upgradepvp.map")) {
-			player.sendMessage(Main.prefixError + "You do not have permission to execute this command");
-			return;
+	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Main.prefixPlain + "Only players can execute this command!");
+			return true;
+		} else if (args.length == 0) {
+			Bukkit.getPlayer(sender.getName()).sendMessage(Main.prefixError + "/UPvP <join|leave|start|create|setspawn|setlobby>");
 		}
-		if (args.length == 2) {
-			if (UPvPMap.exists(args[1])) {
-				player.sendMessage(Main.prefixError + "A map with the same name allready exists!");
-				return;
+		Player player = Bukkit.getPlayer(sender.getName());
+
+		for (UPvPCommand cmd : UPvPCommand.getCommands()) {
+			if (cmd.getName().equalsIgnoreCase(args[0])) {
+				cmd.run(args, player);
+				break;
 			}
-			Main.maps.add(new UPvPMap(args[1]));
-			player.sendMessage(Main.prefix + "Successfully created the Map called " + args[1]);
-		} else {
-			player.sendMessage(Main.prefixError + "/UPvP create <name>");
 		}
+		
+		return true;
 	}
 	
 }
