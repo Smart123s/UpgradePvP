@@ -46,6 +46,7 @@ public class UPvPMap {
 	private static int respawnProt = new ConfigFile("config").get().getInt("respawn-protection");
 	
 	public UPvPMap(String name) {
+		plugin = Main.plugin;
 		this.name = name;
 		mapName.put(name, this);
 		//Creates config file for long-term storage

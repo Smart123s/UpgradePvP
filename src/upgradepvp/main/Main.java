@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import upgradepvp.command.*;
@@ -31,19 +32,19 @@ import upgradepvp.config.*;
 import upgradepvp.map.UPvPMap;
 
 public class Main extends JavaPlugin{
-public static String prefixPlain = "[UpgradePvP] ";
-public static String prefix = "§b[UpgradePvP] §3";
-public static String prefixError = "§c[UpgradePvP] §4";
-public static ArrayList<UPvPMap> maps = new ArrayList<UPvPMap>();
-Logger log = Bukkit.getLogger();
+	public static String prefixPlain = "[UpgradePvP] ";
+	public static String prefix = "§b[UpgradePvP] §3";
+	public static String prefixError = "§c[UpgradePvP] §4";
+	public static Plugin plugin;
+	public static ArrayList<UPvPMap> maps = new ArrayList<UPvPMap>();
+	Logger log = Bukkit.getLogger();
 
 	public void onEnable() {
 		
 		log.info(prefixPlain + "Starting UpgradePvP version " + getDescription().getVersion().toString());
 		
-		//Initialize plugin variables
-		ConfigFile.plugin = this;
-		UPvPMap.plugin = this;
+		//Initialize plugin variable
+		plugin = this;
 		
 		//Create Config Files
 		new ConfigFile("config");
