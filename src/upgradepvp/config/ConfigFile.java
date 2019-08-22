@@ -38,6 +38,7 @@ public class ConfigFile {
 	private static HashMap<String, ConfigFile> configs = new HashMap<String, ConfigFile>();
 	
 	public ConfigFile(String name) {
+		plugin = Main.plugin;
 		this.name = name;
 		configs.put(name, this);
 		setup();
