@@ -1,6 +1,6 @@
 /*
     This file is part of UpgradePvP.
-	Copyright (C) 2019 Péter Tombor
+	Copyright (C) 2019 PÃ©ter Tombor
 
     UpgradePvP is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -42,7 +42,7 @@ public class AddEnchantment {
 			return;
 		
 		Player player = Bukkit.getPlayer(e.getWhoClicked().getName());
-		Enchantment ench = ConfigLocations.getBookName(e.getCurrentItem().getItemMeta().getDisplayName().replaceAll("§b", ""));
+		Enchantment ench = ConfigLocations.getBookName(e.getCurrentItem().getItemMeta().getDisplayName().replaceAll("Â§b", ""));
 		if (!ench.canEnchantItem(player.getItemOnCursor())) {
 			player.sendMessage(Main.prefixError + "You cannot enchant this item with this enchantment!");
 			e.setCancelled(true);

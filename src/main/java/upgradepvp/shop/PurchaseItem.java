@@ -1,6 +1,6 @@
 /*
     This file is part of UpgradePvP.
-	Copyright (C) 2019 Péter Tombor
+	Copyright (C) 2019 PÃ©ter Tombor
 
     UpgradePvP is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -53,7 +53,7 @@ public class PurchaseItem {
 	public static int getPrice(ItemStack item) {
 		if (item.getType() == Material.AIR) return 0;
 		item = item.clone();
-		return Integer.valueOf(item.getItemMeta().getLore().get(0).replaceAll("Cost: ", "").replaceAll("§6§e", "").replace("$", ""));
+		return Integer.valueOf(item.getItemMeta().getLore().get(0).replaceAll("Cost: ", "").replaceAll("Â§6Â§e", "").replace("$", ""));
 	}
 	
 	public static void buyRaw(Player player, ItemStack item, boolean keepName) {
