@@ -1,6 +1,6 @@
 /*
     This file is part of UpgradePvP.
-	Copyright (C) 2019 Péter Tombor
+	Copyright (C) 2019 PÃ©ter Tombor
 
     UpgradePvP is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -49,7 +49,7 @@ public class CalcInvValue {
 	
 	private static int calcItemValue(ItemStack item) {
 		if (item.getType() == Material.ENCHANTED_BOOK) {
-			final Enchantment enchOfItem = ConfigLocations.getBookName(item.getItemMeta().getDisplayName().replaceAll("§b", ""));
+			final Enchantment enchOfItem = ConfigLocations.getBookName(item.getItemMeta().getDisplayName().replaceAll("Â§b", ""));
 			return price.get().getInt(ConfigLocations.getEnchLoc(enchOfItem));
 		}
 		
