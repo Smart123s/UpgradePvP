@@ -47,24 +47,37 @@ public class Rewarding {
 		//Get the value of the inventory of both players
 		final int murderInv = CalcInvValue.calc(murder);
 		final int deadInv = CalcInvValue.calc(dead);
+
 		//Calculate the award of the murder
-		int murderReward = (int) Math.round((deadEco.getCommonMoney() + deadEco.getSafeMoney() + deadInv - murderInv)*0.5);
+		int murderReward;
+		if (deadInv / murderInv > 0.65) {
+			murderReward = (int) Math.round((deadInv / murderInv - 0.65)*(deadEco.getCommonMoney() + deadInv));
+		} else {
+			murderReward = (int) Math.round((murderInv / deadInv - 1.54)*(deadEco.getCommonMoney() + deadInv));
+		}
+
 		//Calculate the remaining money of the dead person
-		int deadReward = (int) Math.round((murderEco.getCommonMoney() + murderEco.getSafeMoney() + murderInv - deadInv)*0.4)-deadEco.getSafeMoney();
-		//If the dead player doesen't have keepinv, give them more money
-		if (!deadEco.hasKeepInv()) deadReward += (int) (Math.round(CalcInvValue.calc(dead)*0.25));
+		int deadReward;
+		if (deadEco.hasKeepInv()) {
+			deadReward = (int) Math.round((deadInv / murderInv)*(deadEco.getCommonMoney()));
+		} else {
+			deadReward = (int) Math.round((deadInv / murderInv)*(deadEco.getCommonMoney() + deadInv));
+		}
+ 
+
 		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
 		if (deadReward < Economy.startingMoney) deadReward = Economy.startingMoney;
-		//Make sure the murderRewrad isn't negative
-		if (murderReward < 0) murderReward = 0;
+
 		//Add murderReward to the murder's common balance
 		murderEco.addCommonMoney(murderReward);
 		//Set the dead player's common balance to deadReward
 		deadEco.setCommonMoney(deadReward);
+
 		//Send a message to the murder about the dead player's remaining money
 		murder.sendMessage(Main.prefix + dead.getName() + "'s new balance is $" + deadReward);
 		//Send a message to the murder about their Reward
 		murder.sendMessage(Main.prefix + "$" + murderReward + " has been added to your account");
+
 		//Send a message to the dead player about the murder's reward
 		dead.sendMessage(Main.prefix + "$" + murderReward + " has benn added to " + murder.getName() + "'s account");
 		//Send a message to the dead player about their remaining money
