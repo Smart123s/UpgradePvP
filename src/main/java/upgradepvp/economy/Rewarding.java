@@ -79,6 +79,10 @@ public class Rewarding {
 			murderReward = (int) Math.round((murderInv / deadInv - 1.54)*(dead.getCommonMoney() + deadInv));
 		}
 		
+		if (murderReward > 700) {
+			murderReward = 700;
+		}
+		
 		return murderReward;
 	}
 	
@@ -100,6 +104,10 @@ public class Rewarding {
 
 		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
 		if (deadReward < Economy.startingMoney) deadReward = Economy.startingMoney;
+		
+		else if (deadReward > 2500) {
+			deadReward = 2500;
+		}
 		
 		return deadReward;
 	}
