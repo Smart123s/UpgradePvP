@@ -22,6 +22,9 @@ import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
 
 import upgradepvp.map.UPvPMap;
 
@@ -41,10 +44,18 @@ public class Economy {
 	
 	private boolean invulnerable = false;
 	
+	private Objective rewardObjective;
+	
 	
 	public Economy(Player player) {
 		eco.put(player, this);
 		this.playerOfEco = player;
+		
+		//Setup scoreboard to show kill reward below players' names
+		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		rewardObjective = scoreboard.registerNewObjective("Reward", "dummy");
+		rewardObjective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+		player.setScoreboard(scoreboard);
 	}
 	
 	public int getCommonMoney() {
@@ -57,15 +68,16 @@ public class Economy {
 	}
 	
 	public void addCommonMoney(int amount) {
-		this.commonBalance += amount;
+		setCommonMoney(commonBalance + amount);
 	}
 	
 	public void removeCommonMoney(int amount) {
-		this.commonBalance -= amount;
+		setCommonMoney(commonBalance - amount);
 	}
 	
 	public void setCommonMoney(int amount) {
 		this.commonBalance = amount;
+		updateAllEnemyScoreboard();
 	}
 	
 	public boolean moveToSafeMoney(int amount) {
@@ -104,6 +116,7 @@ public class Economy {
 	
 	public void addKeepInv() {
 		this.hasKeepInv = true;
+		updateAllEnemyScoreboard();
 	}
 	
 	public boolean hasKeepInv() {
@@ -165,6 +178,26 @@ public class Economy {
 	
 	public void setInvulnerable(boolean val) {
 		this.invulnerable = val;
+	}
+	
+	/**
+	 * Update Scoreboard Reward values for every enemy.
+	 * Should be called when the given rewards value changes.
+	 */
+	private void updateAllEnemyScoreboard() {
+		for (Economy playerEco : eco.values()) {
+			if (playerEco == this) continue;
+			playerEco.updatePlayerScoreboard(this);
+		}
+	}
+	
+	/**
+	 * Update the reward value below a player's name (on the scorebaord)
+	 * @param eco economy of the player who's value has changed
+	 */
+	private void updatePlayerScoreboard(Economy eco) {
+		int reward = Rewarding.calcMurderReward(this, eco);
+		rewardObjective.getScore(eco.getPlayer().getName()).setScore(reward);
 	}
 	
 }
