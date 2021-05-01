@@ -52,7 +52,7 @@ public class Safe implements CommandExecutor{
 		}
 		if (args[0].equalsIgnoreCase("all")) {
 			player.sendMessage(Main.prefix + "$" + eco.getCommonMoney() + " has been taken from your Common Balance.");
-			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*0.6) + " has been added to your Safe Balance.");
+			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*0.05) + " has been added to your Safe Balance.");
 			eco.moveToSafeMoney(eco.getCommonMoney());
 			return true;
 		}
@@ -62,7 +62,7 @@ public class Safe implements CommandExecutor{
 		}
 		eco.moveToSafeMoney(Integer.valueOf(args[0]));
 		player.sendMessage(Main.prefix + "$" + args[0] + " has been taken from your Common Balance.");
-		player.sendMessage(Main.prefix + "$" + (int) (Integer.valueOf(args[0])*0.6) + " has been added to your Safe Balance.");
+		player.sendMessage(Main.prefix + "$" + (int) (Integer.valueOf(args[0])*0.05) + " has been added to your Safe Balance.");
 		return true;
 	}
 
