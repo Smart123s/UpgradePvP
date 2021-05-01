@@ -184,7 +184,7 @@ public class Economy {
 	 * Update Scoreboard Reward values for every enemy.
 	 * Should be called when the given rewards value changes.
 	 */
-	private void updateAllEnemyScoreboard() {
+	public void updateAllEnemyScoreboard() {
 		for (Economy playerEco : eco.values()) {
 			if (playerEco == this) continue;
 			playerEco.updatePlayerScoreboard(this);
