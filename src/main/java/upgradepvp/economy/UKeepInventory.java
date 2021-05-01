@@ -26,7 +26,10 @@ public class UKeepInventory {
 	public void onPlayerRespawnEvent(PlayerRespawnEvent e) {
 		Economy eco = Economy.getEconomy(e.getPlayer());
 		
-		if (eco == null || !eco.hasKeepInv()) return;
+		if (eco == null || !eco.hasKeepInv()) {
+			eco.updateAllEnemyScoreboard();
+			return;
+		}
 		
 		Inventory pInv = e.getPlayer().getInventory();
 		Inventory kInv = eco.getKeepInvItems();
@@ -41,6 +44,7 @@ public class UKeepInventory {
 		
 		
 		eco.clearKeepInvStorage();
+		eco.updateAllEnemyScoreboard();
 		
 		e.getPlayer().sendMessage(Main.prefix + "Your inventory has been restored, because you had KeepInventory.");
 		
