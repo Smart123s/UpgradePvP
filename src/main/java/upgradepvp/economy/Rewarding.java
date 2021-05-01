@@ -66,8 +66,10 @@ public class Rewarding {
 	
 	public static int calcMurderReward(Economy murder, Economy dead) {
 		//Get the value of the inventory of both players
-		final int murderInv = CalcInvValue.calc(murder.getPlayer());
-		final int deadInv = CalcInvValue.calc(dead.getPlayer());
+		//Add 1 to prevent dividing by zero
+		//Since these values are big numbers adding 1 won't make a big difference
+		final int murderInv = CalcInvValue.calc(murder.getPlayer()) + 1;
+		final int deadInv = CalcInvValue.calc(dead.getPlayer()) + 1;
 
 		//Calculate the award of the murder
 		int murderReward;
@@ -82,8 +84,10 @@ public class Rewarding {
 	
 	public static int calcDeadReward(Economy murder, Economy dead) {
 		//Get the value of the inventory of both players
-		final int murderInv = CalcInvValue.calc(murder.getPlayer());
-		final int deadInv = CalcInvValue.calc(dead.getPlayer());
+		//Add 1 to prevent dividing by zero
+		//Since these values are big numbers adding 1 won't make a big difference
+		final int murderInv = CalcInvValue.calc(murder.getPlayer()) + 1;
+		final int deadInv = CalcInvValue.calc(dead.getPlayer()) + 1;
 
 		//Calculate the remaining money of the dead person
 		int deadReward;
