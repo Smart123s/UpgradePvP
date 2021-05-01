@@ -44,29 +44,9 @@ public class Rewarding {
 		//If the dead player has keepInv, then store their items
 		if (deadEco.hasKeepInv()) deadEco.storeKeepInvItems();
 		
-		//Get the value of the inventory of both players
-		final int murderInv = CalcInvValue.calc(murder);
-		final int deadInv = CalcInvValue.calc(dead);
-
-		//Calculate the award of the murder
-		int murderReward;
-		if (deadInv / murderInv > 0.65) {
-			murderReward = (int) Math.round((deadInv / murderInv - 0.65)*(deadEco.getCommonMoney() + deadInv));
-		} else {
-			murderReward = (int) Math.round((murderInv / deadInv - 1.54)*(deadEco.getCommonMoney() + deadInv));
-		}
-
-		//Calculate the remaining money of the dead person
-		int deadReward;
-		if (deadEco.hasKeepInv()) {
-			deadReward = (int) Math.round((deadInv / murderInv)*(deadEco.getCommonMoney()));
-		} else {
-			deadReward = (int) Math.round((deadInv / murderInv)*(deadEco.getCommonMoney() + deadInv));
-		}
- 
-
-		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
-		if (deadReward < Economy.startingMoney) deadReward = Economy.startingMoney;
+		//Calculate rewards
+		int murderReward = calcMurderReward(murderEco, deadEco);
+		int deadReward = calcDeadReward(murderEco, deadEco);
 
 		//Add murderReward to the murder's common balance
 		murderEco.addCommonMoney(murderReward);
@@ -82,6 +62,42 @@ public class Rewarding {
 		dead.sendMessage(Main.prefix + "$" + murderReward + " has benn added to " + murder.getName() + "'s account");
 		//Send a message to the dead player about their remaining money
 		dead.sendMessage(Main.prefix + "$" + deadReward + " is your new balance");
+	}
+	
+	public static int calcMurderReward(Economy murder, Economy dead) {
+		//Get the value of the inventory of both players
+		final int murderInv = CalcInvValue.calc(murder.getPlayer());
+		final int deadInv = CalcInvValue.calc(dead.getPlayer());
+
+		//Calculate the award of the murder
+		int murderReward;
+		if (deadInv / murderInv > 0.65) {
+			murderReward = (int) Math.round((deadInv / murderInv - 0.65)*(dead.getCommonMoney() + deadInv));
+		} else {
+			murderReward = (int) Math.round((murderInv / deadInv - 1.54)*(dead.getCommonMoney() + deadInv));
+		}
+		
+		return murderReward;
+	}
+	
+	public static int calcDeadReward(Economy murder, Economy dead) {
+		//Get the value of the inventory of both players
+		final int murderInv = CalcInvValue.calc(murder.getPlayer());
+		final int deadInv = CalcInvValue.calc(dead.getPlayer());
+
+		//Calculate the remaining money of the dead person
+		int deadReward;
+		if (dead.hasKeepInv()) {
+			deadReward = (int) Math.round((deadInv / murderInv)*(dead.getCommonMoney()));
+		} else {
+			deadReward = (int) Math.round((deadInv / murderInv)*(dead.getCommonMoney() + deadInv));
+		}
+ 
+
+		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
+		if (deadReward < Economy.startingMoney) deadReward = Economy.startingMoney;
+		
+		return deadReward;
 	}
 	
 }
