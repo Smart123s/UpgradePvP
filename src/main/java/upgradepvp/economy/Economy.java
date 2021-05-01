@@ -188,6 +188,7 @@ public class Economy {
 		for (Economy playerEco : eco.values()) {
 			if (playerEco == this) continue;
 			playerEco.updatePlayerScoreboard(this);
+			updatePlayerScoreboard(playerEco);
 		}
 	}
 	
