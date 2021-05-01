@@ -35,8 +35,8 @@ public class PurchaseItem {
 			player.sendMessage(Main.prefixError + "You don't have enough money to purchase this product!");
 			return;
 		}
-			eco.removeMoney(price);
-			player.getInventory().addItem(item);
+		player.getInventory().addItem(item);
+		eco.removeMoney(price);
 	}
 	
 	public static ItemStack removeMeta(ItemStack item, boolean keepName) {
