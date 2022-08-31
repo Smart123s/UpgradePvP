@@ -28,6 +28,8 @@ import upgradepvp.main.Main;
 
 public class Safe implements CommandExecutor{
 
+	private final static float SAFE_MULTIPLIER = 0.2f;
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		if (!(sender instanceof Player)) {
@@ -52,17 +54,17 @@ public class Safe implements CommandExecutor{
 		}
 		if (args[0].equalsIgnoreCase("all")) {
 			player.sendMessage(Main.prefix + "$" + eco.getCommonMoney() + " has been taken from your Common Balance.");
-			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*0.05) + " has been added to your Safe Balance.");
-			eco.moveToSafeMoney(eco.getCommonMoney());
+			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*SAFE_MULTIPLIER) + " has been added to your Safe Balance.");
+			eco.moveToSafeMoney((int) (eco.getCommonMoney()*SAFE_MULTIPLIER));
 			return true;
 		}
 		else if (!eco.hasEnoughCommon(Integer.valueOf(args[0]))) {
 			player.sendMessage(Main.prefixError + "You do not have enough money to do that!");
 			return true;
 		}
-		eco.moveToSafeMoney(Integer.valueOf(args[0]));
+		eco.moveToSafeMoney((int) ((Integer.valueOf(args[0]))*SAFE_MULTIPLIER));
 		player.sendMessage(Main.prefix + "$" + args[0] + " has been taken from your Common Balance.");
-		player.sendMessage(Main.prefix + "$" + (int) (Integer.valueOf(args[0])*0.05) + " has been added to your Safe Balance.");
+		player.sendMessage(Main.prefix + "$" + (int) (Integer.valueOf(args[0])*SAFE_MULTIPLIER) + " has been added to your Safe Balance.");
 		return true;
 	}
 
