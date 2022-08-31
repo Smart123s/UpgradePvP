@@ -57,6 +57,7 @@ public class Rewarding {
 		murder.sendMessage(Main.prefix + dead.getName() + "'s new balance is $" + deadReward);
 		//Send a message to the murder about their Reward
 		murder.sendMessage(Main.prefix + "$" + murderReward + " has been added to your account");
+		murder.sendMessage(Main.prefix + "$" + (murderReward + murderEco.getCommonMoney()) + " is your new balance");
 
 		//Send a message to the dead player about the murder's reward
 		dead.sendMessage(Main.prefix + "$" + murderReward + " has benn added to " + murder.getName() + "'s account");
@@ -72,16 +73,7 @@ public class Rewarding {
 		final int deadInv = CalcInvValue.calc(dead.getPlayer()) + 1;
 
 		//Calculate the award of the murder
-		int murderReward;
-		if (deadInv / murderInv > 0.65) {
-			murderReward = (int) Math.round((deadInv / murderInv - 0.65)*(dead.getCommonMoney() + deadInv));
-		} else {
-			murderReward = (int) Math.round((murderInv / deadInv - 1.54)*(dead.getCommonMoney() + deadInv));
-		}
-		
-		if (murderReward > 700) {
-			murderReward = 700;
-		}
+		int murderReward = (int) Math.round((dead.getCommonMoney() + deadInv) * 0.7) + 50;
 		
 		return murderReward;
 	}
@@ -94,20 +86,13 @@ public class Rewarding {
 		final int deadInv = CalcInvValue.calc(dead.getPlayer()) + 1;
 
 		//Calculate the remaining money of the dead person
-		int deadReward;
-		if (dead.hasKeepInv()) {
-			deadReward = (int) Math.round((deadInv / murderInv)*(dead.getCommonMoney()));
-		} else {
-			deadReward = (int) Math.round((deadInv / murderInv)*(dead.getCommonMoney() + deadInv));
-		}
+		int deadReward = (int) Math.round((dead.getCommonMoney() + deadInv) * 0.7 + murderInv * 0.2);
  
 
 		//If the remaining money of the dead player is below the startingMoney, give them the startingMoney
 		if (deadReward < Economy.startingMoney) deadReward = Economy.startingMoney;
-		
-		else if (deadReward > 2500) {
-			deadReward = 2500;
-		}
+		else if (deadReward > 5000) deadReward = 5000;
+		else if (dead.getCommonMoney() > deadReward) deadReward = dead.getCommonMoney();
 		
 		return deadReward;
 	}
