@@ -57,7 +57,7 @@ public class Rewarding {
 		murder.sendMessage(Main.prefix + dead.getName() + "'s new balance is $" + deadReward);
 		//Send a message to the murder about their Reward
 		murder.sendMessage(Main.prefix + "$" + murderReward + " has been added to your account");
-		murder.sendMessage(Main.prefix + "$" + (murderReward + murderEco.getCommonMoney()) + " is your new balance");
+		murder.sendMessage(Main.prefix + "$" + (murderEco.getCommonMoney()) + " is your new balance");
 
 		//Send a message to the dead player about the murder's reward
 		dead.sendMessage(Main.prefix + "$" + murderReward + " has benn added to " + murder.getName() + "'s account");
