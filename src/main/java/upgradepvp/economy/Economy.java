@@ -83,7 +83,7 @@ public class Economy {
 	public boolean moveToSafeMoney(int amount) {
 		if (!(this.commonBalance >= amount)) return false; 
 			this.removeCommonMoney(amount);
-			this.addSafeMoney((int) (amount*0.05));
+			this.addSafeMoney(amount);
 		return true;
 	}
 	
