@@ -63,6 +63,12 @@ public class Rewarding {
 		dead.sendMessage(Main.prefix + "$" + murderReward + " has benn added to " + murder.getName() + "'s account");
 		//Send a message to the dead player about their remaining money
 		dead.sendMessage(Main.prefix + "$" + deadReward + " is your new balance");
+
+		// Update balance scoreboards for every player ingame
+		for (Player player : deadEco.getCurrentMap().getInGame()) {
+			Economy eco = Economy.getEconomy(player);
+			eco.updateAllBalanceScoreboard();
+		}
 	}
 	
 	public static int calcMurderReward(Economy murder, Economy dead) {
