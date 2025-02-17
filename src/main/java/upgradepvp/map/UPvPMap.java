@@ -17,6 +17,7 @@
 */
 package upgradepvp.map;
 
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -129,6 +130,9 @@ public class UPvPMap {
 			OpenShopItem.give(player);
 			//Tell them that the game has started
 			player.sendMessage(Main.prefix + "The game has started!");
+
+			Economy eco = Economy.getEconomy(player);
+			eco.updateAllBalanceScoreboard();
 		}
 	}
 	
@@ -172,6 +176,10 @@ public class UPvPMap {
             }
         }, respawnProt*20L);
 		
+	}
+	
+	public ArrayList<Player> getInGame() {
+		return inGame;
 	}
 	
 }

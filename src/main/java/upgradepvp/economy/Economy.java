@@ -45,7 +45,7 @@ public class Economy {
 	private boolean invulnerable = false;
 	
 	private Objective rewardObjective;
-	
+	private Objective balanceObjective;
 	
 	public Economy(Player player) {
 		eco.put(player, this);
@@ -55,6 +55,10 @@ public class Economy {
 		Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 		rewardObjective = scoreboard.registerNewObjective("Reward", "dummy");
 		rewardObjective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+
+		balanceObjective = scoreboard.registerNewObjective("Balance", "dummy");
+		balanceObjective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
 		player.setScoreboard(scoreboard);
 	}
 	
@@ -199,6 +203,20 @@ public class Economy {
 	private void updatePlayerScoreboard(Economy eco) {
 		int reward = Rewarding.calcMurderReward(this, eco);
 		rewardObjective.getScore(eco.getPlayer().getName()).setScore(reward);
+	}
+
+	/**
+	 * Updates the balance scoreboard for a given player's economy
+	 * @param eco the economy object for the player whose balance scoreboard is being updated
+	 */
+	private void updateBalanceScoreboard(Economy eco) {
+		balanceObjective.getScore(eco.getPlayer().getName()).setScore(eco.getCommonMoney() + eco.getSafeMoney());
+	}
+
+	public void updateAllBalanceScoreboard() {
+		for (Economy playerEco : eco.values()) {
+			updateBalanceScoreboard(playerEco);
+		}
 	}
 	
 }
