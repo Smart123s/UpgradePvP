@@ -17,6 +17,7 @@
 */
 package upgradepvp.map;
 
+import java.sql.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +46,7 @@ public class UPvPMap {
 	private static HashMap<String, UPvPMap> mapName = new HashMap<String, UPvPMap>();
 	private ArrayList<Player> winners = new ArrayList<Player>();
 	private static int respawnProt = new ConfigFile("config").get().getInt("respawn-protection");
+	private int databaseGameId;
 	
 	public UPvPMap(String name) {
 		plugin = Main.plugin;
@@ -122,17 +124,50 @@ public class UPvPMap {
 	}
 	
 	public void startGame() {
-		//Complete the following actions on all players of the game
-		for (Player player : inGame) {
-			//Teleport to spawn
-			player.teleport(spawn);
-			//Give an openShopItem
-			OpenShopItem.give(player);
-			//Tell them that the game has started
-			player.sendMessage(Main.prefix + "The game has started!");
+        try {
+            Connection conn = Main.getDatabaseConnection();
+			String sql = "INSERT INTO Game () VALUES ()";
 
-			Economy eco = Economy.getEconomy(player);
-			eco.updateAllBalanceScoreboard();
+			// Add game to database
+			PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			int affectedRows = preparedStatement.executeUpdate();
+			if (affectedRows > 0) {
+				try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+					if (generatedKeys.next()) {
+						databaseGameId = generatedKeys.getInt(1);
+					}
+				}
+			}
+
+			//Complete the following actions on all players of the game
+			for (Player player : inGame) {
+				//Teleport to spawn
+				player.teleport(spawn);
+				//Give an openShopItem
+				OpenShopItem.give(player);
+				//Tell them that the game has started
+				player.sendMessage(Main.prefix + "The game has started!");
+
+				Economy eco = Economy.getEconomy(player);
+				eco.updateAllBalanceScoreboard();
+
+				// Add game player to database
+				sql = "INSERT IGNORE INTO Player (playerUuid, playerName) VALUES (?, ?)";
+				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setString(1, player.getUniqueId().toString());
+				preparedStatement.setString(2, player.getName());
+				preparedStatement.executeUpdate();
+
+				// Add game player to database
+				sql = "INSERT INTO GamePlayer (gameId, playerUuid) VALUES (?, ?)";
+				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setInt(1, databaseGameId);
+				preparedStatement.setString(2, player.getUniqueId().toString());
+				preparedStatement.executeUpdate();
+			}
+			conn.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	

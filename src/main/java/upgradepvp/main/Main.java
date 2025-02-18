@@ -18,10 +18,14 @@
 package upgradepvp.main;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -35,7 +39,7 @@ public class Main extends JavaPlugin{
 	public static String prefixPlain = "[UpgradePvP] ";
 	public static String prefix = "§b[UpgradePvP] §3";
 	public static String prefixError = "§c[UpgradePvP] §4";
-	public static Plugin plugin;
+	public static Main plugin;
 	public static ArrayList<UPvPMap> maps = new ArrayList<UPvPMap>();
 	Logger log = Bukkit.getLogger();
 
@@ -76,6 +80,21 @@ public class Main extends JavaPlugin{
 		log.info(prefixPlain + "Disabling UpgradePvP version " + getDescription().getVersion().toString());
 		
 		log.info(prefixPlain + "Successfully disabled UpgradePvP version " + getDescription().getVersion().toString());
+	}
+
+	/**
+	 * Loads database credentials from the config file and establishes a connection.
+	 * Don't forget to close the connection after usage.
+	 * @return a database connection
+	 * @throws SQLException
+	 */
+	public static Connection getDatabaseConnection() throws SQLException {
+		FileConfiguration config = new ConfigFile("config").get();
+		String username = config.getString("database-user");
+		String password = config.getString("database-password");
+		String url = config.getString("database-url");
+
+		return DriverManager.getConnection(url, username, password);
 	}
 	
 }
