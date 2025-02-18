@@ -238,5 +238,9 @@ public class UPvPMap {
 	public ArrayList<Player> getInGame() {
 		return inGame;
 	}
+
+	public int getDatabaseGameId() {
+		return databaseGameId;
+	}
 	
 }

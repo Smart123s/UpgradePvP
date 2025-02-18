@@ -22,6 +22,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import upgradepvp.main.Main;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 public class Rewarding {
 	
 	public void onKill(PlayerDeathEvent e){
@@ -69,6 +74,28 @@ public class Rewarding {
 			Economy eco = Economy.getEconomy(player);
 			eco.updateAllBalanceScoreboard();
 		}
+
+		// Add death to database
+		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
+			try {
+				Connection conn = Main.getDatabaseConnection ();
+				String sql;
+				PreparedStatement preparedStatement;
+
+				sql = "INSERT INTO Death (gameId, murdererUuid, deadUuid, murdererReward, deadReward) VALUES (?, ?, ?, ?, ?)";
+				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setInt(1, Economy.getEconomy(murder).getCurrentMap().getDatabaseGameId());
+				preparedStatement.setString(2, murder.getUniqueId().toString());
+				preparedStatement.setString(3, dead.getUniqueId().toString());
+				preparedStatement.setInt(4, murderReward);
+				preparedStatement.setInt(5, deadReward);
+				preparedStatement.executeUpdate();
+				conn.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		});
+
 	}
 	
 	public static int calcMurderReward(Economy murder, Economy dead) {
