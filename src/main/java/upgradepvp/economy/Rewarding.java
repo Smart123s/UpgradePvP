@@ -82,7 +82,7 @@ public class Rewarding {
 				String sql;
 				PreparedStatement preparedStatement;
 
-				sql = "INSERT INTO Death (gameId, murdererUuid, deadUuid, murdererReward, deadReward) VALUES (?, ?, ?, ?, ?)";
+				sql = "INSERT INTO death (game_id, murderer_uuid, dead_uuid, murderer_reward, dead_reward) VALUES (?, ?, ?, ?, ?)";
 				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setInt(1, Economy.getEconomy(murder).getCurrentMap().getDatabaseGameId());
 				preparedStatement.setString(2, murder.getUniqueId().toString());

@@ -130,7 +130,7 @@ public class UPvPMap {
 		databaseStatements.add(() -> {
 			try {
 				Connection conn = Main.getDatabaseConnection();
-				String sql = "INSERT INTO Game () VALUES ()";
+				String sql = "INSERT INTO game () VALUES ()";
 
 				PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				int affectedRows = preparedStatement.executeUpdate();
@@ -165,14 +165,14 @@ public class UPvPMap {
 					PreparedStatement preparedStatement;
 
 					// Add game player to database
-					sql = "INSERT IGNORE INTO Player (playerUuid, playerName) VALUES (?, ?)";
+					sql = "INSERT IGNORE INTO player (player_uuid, player_name) VALUES (?, ?)";
 					preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 					preparedStatement.setString(1, player.getUniqueId().toString());
 					preparedStatement.setString(2, player.getName());
 					preparedStatement.executeUpdate();
 
 					// Add game player to database
-					sql = "INSERT INTO GamePlayer (gameId, playerUuid) VALUES (?, ?)";
+					sql = "INSERT INTO game_player (game_id, player_uuid) VALUES (?, ?)";
 					preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 					preparedStatement.setInt(1, databaseGameId); // databaseGameId is accessible here
 					preparedStatement.setString(2, player.getUniqueId().toString());

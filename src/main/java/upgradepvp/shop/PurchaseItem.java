@@ -51,7 +51,7 @@ public class PurchaseItem {
 				String sql;
 				PreparedStatement preparedStatement;
 
-				sql = "INSERT INTO Purchase (gameId, playerUuid, item, price) VALUES (?, ?, ?, ?)";
+				sql = "INSERT INTO purchase (game_id, player_uuid, item, price) VALUES (?, ?, ?, ?)";
 				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setInt(1, eco.getCurrentMap().getDatabaseGameId());
 				preparedStatement.setString(2, player.getUniqueId().toString());

@@ -1,43 +1,48 @@
-DROP TABLE Purchase, GamePlayer, Death, Player, Game;
+DROP TABLE purchase, game_player, death, player, game;
 
-CREATE TABLE Player (
-                        playerUuid VARCHAR(36) PRIMARY KEY,
-                        playerName VARCHAR(255) NOT NULL
+CREATE TABLE player
+(
+    player_uuid VARCHAR(36) PRIMARY KEY,
+    player_name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE Game (
-                      id INT AUTO_INCREMENT PRIMARY KEY,
-                      createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE game
+(
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE GamePlayer (
-                            id INT AUTO_INCREMENT PRIMARY KEY,
-                            gameId INT NOT NULL,
-                            playerUuid VARCHAR(36) NOT NULL,
-                            FOREIGN KEY (gameId) REFERENCES Game(id),
-                            FOREIGN KEY (playerUuid) REFERENCES Player(playerUuid)
+CREATE TABLE game_player
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    game_id     INT         NOT NULL,
+    player_uuid VARCHAR(36) NOT NULL,
+    FOREIGN KEY (game_id) REFERENCES game (id),
+    FOREIGN KEY (player_uuid) REFERENCES player (player_uuid)
 );
 
-CREATE TABLE Death (
-                       id INT AUTO_INCREMENT PRIMARY KEY,
-                       gameId INT NOT NULL,
-                       murdererUuid VARCHAR(36) NOT NULL,
-                       deadUuid VARCHAR(36) NOT NULL,
-                       murdererReward INT NOT NULL,
-                       deadReward INT NOT NULL,
-                       createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                       FOREIGN KEY (gameId) REFERENCES Game(id),
-                       FOREIGN KEY (murdererUuid) REFERENCES Player(playerUuid),
-                       FOREIGN KEY (deadUuid) REFERENCES Player(playerUuid)
+CREATE TABLE death
+(
+    id              INT AUTO_INCREMENT PRIMARY KEY,
+    game_id         INT         NOT NULL,
+    murderer_uuid   VARCHAR(36) NOT NULL,
+    dead_uuid       VARCHAR(36) NOT NULL,
+    murderer_reward INT         NOT NULL,
+    dead_reward     INT         NOT NULL,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (game_id) REFERENCES game (id),
+    FOREIGN KEY (murderer_uuid) REFERENCES player (player_uuid),
+    FOREIGN KEY (dead_uuid) REFERENCES player (player_uuid)
 );
 
-CREATE TABLE Purchase (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          gameId INT NOT NULL,
-                          playerUuid VARCHAR(36) NOT NULL,
-                          item VARCHAR(255) NOT NULL,
-                          price INT NOT NULL,
-                          createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                          FOREIGN KEY (gameId) REFERENCES Game(id),
-                          FOREIGN KEY (playerUuid) REFERENCES Player(playerUuid)
+CREATE TABLE purchase
+(
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    game_id     INT          NOT NULL,
+    player_uuid VARCHAR(36)  NOT NULL,
+    item        VARCHAR(255) NOT NULL,
+    price       INT          NOT NULL,
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (game_id) REFERENCES game (id),
+    FOREIGN KEY (player_uuid) REFERENCES player (player_uuid)
 );
