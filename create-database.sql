@@ -1,3 +1,5 @@
+DROP TABLE Purchase, GamePlayer, Death, Player, Game;
+
 CREATE TABLE Player (
                         playerUuid VARCHAR(36) PRIMARY KEY,
                         playerName VARCHAR(255) NOT NULL
@@ -33,8 +35,8 @@ CREATE TABLE Purchase (
                           id INT AUTO_INCREMENT PRIMARY KEY,
                           gameId INT NOT NULL,
                           playerUuid VARCHAR(36) NOT NULL,
-                          purchaseItem VARCHAR(255) NOT NULL,
-                          purchasePrice INT NOT NULL,
+                          item VARCHAR(255) NOT NULL,
+                          price INT NOT NULL,
                           createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                           FOREIGN KEY (gameId) REFERENCES Game(id),
                           FOREIGN KEY (playerUuid) REFERENCES Player(playerUuid)
