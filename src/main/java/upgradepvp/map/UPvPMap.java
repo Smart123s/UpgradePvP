@@ -122,55 +122,77 @@ public class UPvPMap {
 		player.sendMessage(Main.prefix + "Successfully joined game " + name);
 		
 	}
-	
-	public void startGame() {
-        try {
-            Connection conn = Main.getDatabaseConnection();
-			String sql = "INSERT INTO Game () VALUES ()";
 
-			// Add game to database
-			PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			int affectedRows = preparedStatement.executeUpdate();
-			if (affectedRows > 0) {
-				try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
-					if (generatedKeys.next()) {
-						databaseGameId = generatedKeys.getInt(1);
+	public void startGame() {
+		ArrayList<Runnable> databaseStatements = new ArrayList<>();
+
+		// Add game to database
+		databaseStatements.add(() -> {
+			try {
+				Connection conn = Main.getDatabaseConnection();
+				String sql = "INSERT INTO Game () VALUES ()";
+
+				PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				int affectedRows = preparedStatement.executeUpdate();
+				if (affectedRows > 0) {
+					try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+						if (generatedKeys.next()) {
+							databaseGameId = generatedKeys.getInt(1);
+						}
 					}
 				}
+				conn.close();
+			} catch (SQLException exception) {
+				exception.printStackTrace();
 			}
+		});
 
-			//Complete the following actions on all players of the game
-			for (Player player : inGame) {
-				//Teleport to spawn
-				player.teleport(spawn);
-				//Give an openShopItem
-				OpenShopItem.give(player);
-				//Tell them that the game has started
-				player.sendMessage(Main.prefix + "The game has started!");
+		for (Player player : inGame) {
+			//Teleport to spawn
+			player.teleport(spawn);
+			//Give an openShopItem
+			OpenShopItem.give(player);
+			//Tell them that the game has started
+			player.sendMessage(Main.prefix + "The game has started!");
 
-				Economy eco = Economy.getEconomy(player);
-				eco.updateAllBalanceScoreboard();
+			Economy eco = Economy.getEconomy(player);
+			eco.updateAllBalanceScoreboard();
 
-				// Add game player to database
-				sql = "INSERT IGNORE INTO Player (playerUuid, playerName) VALUES (?, ?)";
-				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				preparedStatement.setString(1, player.getUniqueId().toString());
-				preparedStatement.setString(2, player.getName());
-				preparedStatement.executeUpdate();
+			databaseStatements.add(() -> {
+				try {
+					Connection conn = Main.getDatabaseConnection();
+					String sql;
+					PreparedStatement preparedStatement;
 
-				// Add game player to database
-				sql = "INSERT INTO GamePlayer (gameId, playerUuid) VALUES (?, ?)";
-				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-				preparedStatement.setInt(1, databaseGameId);
-				preparedStatement.setString(2, player.getUniqueId().toString());
-				preparedStatement.executeUpdate();
-			}
-			conn.close();
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+					// Add game player to database
+					sql = "INSERT IGNORE INTO Player (playerUuid, playerName) VALUES (?, ?)";
+					preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					preparedStatement.setString(1, player.getUniqueId().toString());
+					preparedStatement.setString(2, player.getName());
+					preparedStatement.executeUpdate();
+
+					// Add game player to database
+					sql = "INSERT INTO GamePlayer (gameId, playerUuid) VALUES (?, ?)";
+					preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					preparedStatement.setInt(1, databaseGameId); // databaseGameId is accessible here
+					preparedStatement.setString(2, player.getUniqueId().toString());
+					preparedStatement.executeUpdate();
+					conn.close();
+
+				} catch (SQLException exception) {
+					exception.printStackTrace();
+				}
+			});
 		}
+
+		// Create and run a single task for all database operations
+		Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+			for (Runnable statement : databaseStatements) {
+				statement.run();
+			}
+		});
 	}
-	
+
 	public void playerFinish(Player player) {
 		this.winners.add(player);
 		player.setGameMode(GameMode.SPECTATOR);
