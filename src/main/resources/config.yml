@@ -1,2 +1,6 @@
 #Duration of invulnerability after respawn in seconds
 respawn-protection: 10
+
+# Automatically join players to a game when they connect to the server
+# Provide the name of the map
+auto-join-map: "none"

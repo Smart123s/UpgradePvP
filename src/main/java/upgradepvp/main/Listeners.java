@@ -17,6 +17,7 @@
 */
 package upgradepvp.main;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -24,9 +25,11 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 
+import upgradepvp.config.ConfigFile;
 import upgradepvp.economy.Economy;
 import upgradepvp.economy.Rewarding;
 import upgradepvp.economy.UKeepInventory;
@@ -85,5 +88,18 @@ public class Listeners implements Listener{
 	@EventHandler
 	public void onEntityDamageByEntityEvent(EntityDamageByEntityEvent e) {
 		playerDamageEvent.onEntityDamageByEntityEvent(e);
+	}
+
+	@EventHandler
+	public void onPlayerJoinEvent(PlayerJoinEvent e) {
+		FileConfiguration config = new ConfigFile("config").get();
+		String mapName = config.getString("auto-join-map");
+		UPvPMap map = UPvPMap.get(mapName);
+		if (map == null) {
+			return;
+		} else if ("none".equals(mapName)) {
+			return;
+		}
+		map.join(e.getPlayer());
 	}
 }
