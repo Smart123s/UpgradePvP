@@ -132,7 +132,7 @@ public class UPvPMap {
 			player.sendMessage(Main.prefix + "The game has started!");
 
 			Economy eco = Economy.getEconomy(player);
-			eco.updateAllBalanceScoreboard();
+			eco.getCurrentMap().updateAllBalanceScoreboard();
 		}
 	}
 
@@ -176,6 +176,16 @@ public class UPvPMap {
 			}
 		}, respawnProt*20L);
 
+	}
+
+	public void updateAllBalanceScoreboard() {
+		for (Player player : this.getInGame()) {
+			Economy eco = Economy.getEconomy(player);
+			for (Player player2 : this.getInGame()) {
+				Economy playerEco = Economy.getEconomy(player2);
+				eco.updateBalanceScoreboard(playerEco);
+			}
+		}
 	}
 
 	public ArrayList<Player> getInGame() {

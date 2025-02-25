@@ -209,14 +209,8 @@ public class Economy {
 	 * Updates the balance scoreboard for a given player's economy
 	 * @param eco the economy object for the player whose balance scoreboard is being updated
 	 */
-	private void updateBalanceScoreboard(Economy eco) {
+	public void updateBalanceScoreboard(Economy eco) {
 		balanceObjective.getScore(eco.getPlayer().getName()).setScore(eco.getCommonMoney() + eco.getSafeMoney());
-	}
-
-	public void updateAllBalanceScoreboard() {
-		for (Economy playerEco : eco.values()) {
-			updateBalanceScoreboard(playerEco);
-		}
 	}
 	
 }

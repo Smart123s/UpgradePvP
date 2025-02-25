@@ -65,10 +65,7 @@ public class Rewarding {
 		dead.sendMessage(Main.prefix + "$" + deadReward + " is your new balance");
 
 		// Update balance scoreboards for every player ingame
-		for (Player player : deadEco.getCurrentMap().getInGame()) {
-			Economy eco = Economy.getEconomy(player);
-			eco.updateAllBalanceScoreboard();
-		}
+        deadEco.getCurrentMap().updateAllBalanceScoreboard();
 	}
 	
 	public static int calcMurderReward(Economy murder, Economy dead) {

@@ -37,7 +37,7 @@ public class PurchaseItem {
 		}
 		player.getInventory().addItem(item);
 		eco.removeMoney(price);
-		eco.updateAllBalanceScoreboard();
+		eco.getCurrentMap().updateAllBalanceScoreboard();
 	}
 	
 	public static ItemStack removeMeta(ItemStack item, boolean keepName) {

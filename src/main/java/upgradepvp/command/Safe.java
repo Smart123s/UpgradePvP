@@ -56,7 +56,7 @@ public class Safe implements CommandExecutor{
 			player.sendMessage(Main.prefix + "$" + eco.getCommonMoney() + " has been taken from your Common Balance.");
 			player.sendMessage(Main.prefix + "$" + (int) (eco.getCommonMoney()*SAFE_MULTIPLIER) + " has been added to your Safe Balance.");
 			eco.moveToSafeMoney((int) (eco.getCommonMoney()*SAFE_MULTIPLIER));
-			eco.updateAllBalanceScoreboard();
+			eco.getCurrentMap().updateAllBalanceScoreboard();
 			return true;
 		}
 		else if (!eco.hasEnoughCommon(Integer.valueOf(args[0]))) {
