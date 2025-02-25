@@ -87,34 +87,15 @@ public class UPvPMap {
 			return;
 		}
 
-		//Get the economy of the player
-		Economy eco = Economy.getEconomy(player);
-		//Check if eco exists
-		if (eco == null) eco = new Economy(player);
-
-		//Reset the player money, keepInv, etc.
-		eco.reset();
-		//Set the map to this in the eco
-		eco.setCurrentMap(this);
-
 		//Add the player to the Map's player list
 		inGame.add(player);
 
 		//Actions with the player
 		//Teleport to the waiting area
 		player.teleport(lobby);
-		//Clear inventory
-		player.getInventory().clear();
-		//Set gamemode to adventure
-		player.setGameMode(GameMode.ADVENTURE);
-		//Reset health and saturation
-		player.setHealth(20);
-		player.setSaturation(20);
-		//Remove all potion effects
-		for (PotionEffect effect : player.getActivePotionEffects())
-			player.removePotionEffect(effect.getType());
-		//Set spawn point
-		player.setBedSpawnLocation(spawn, true);
+
+		//Reset player
+		this.resetPlayer(player);
 
 		//Notify the player about the successful join
 		player.sendMessage(Main.prefix + "Successfully joined game " + name);
@@ -124,16 +105,17 @@ public class UPvPMap {
 	public void startGame() {
 		//Complete the following actions on all players of the game
 		for (Player player : inGame) {
+			//Reset player
+			this.resetPlayer(player);
 			//Teleport to spawn
 			player.teleport(spawn);
 			//Give an openShopItem
 			OpenShopItem.give(player);
 			//Tell them that the game has started
 			player.sendMessage(Main.prefix + "The game has started!");
-
-			Economy eco = Economy.getEconomy(player);
-			eco.getCurrentMap().updateAllBalanceScoreboard();
 		}
+
+		this.updateAllBalanceScoreboard();
 	}
 
 	public void playerFinish(Player player) {
@@ -190,6 +172,31 @@ public class UPvPMap {
 
 	public ArrayList<Player> getInGame() {
 		return inGame;
+	}
+
+	private void resetPlayer(Player player) {
+		//Get the economy of the player
+		Economy eco = Economy.getEconomy(player);
+		//Check if eco exists
+		if (eco == null) eco = new Economy(player);
+
+		//Reset the player money, keepInv, etc.
+		eco.reset();
+		//Set the map to this in the eco
+		eco.setCurrentMap(this);
+
+		//Clear inventory
+		player.getInventory().clear();
+		//Set gamemode to adventure
+		player.setGameMode(GameMode.ADVENTURE);
+		//Reset health and saturation
+		player.setHealth(20);
+		player.setSaturation(20);
+		//Remove all potion effects
+		for (PotionEffect effect : player.getActivePotionEffects())
+			player.removePotionEffect(effect.getType());
+		//Set spawn point
+		player.setBedSpawnLocation(spawn, true);
 	}
 
 }
