@@ -17,6 +17,7 @@
 */
 package upgradepvp.map;
 
+import java.sql.*;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,7 +46,8 @@ public class UPvPMap {
 	private static HashMap<String, UPvPMap> mapName = new HashMap<String, UPvPMap>();
 	private ArrayList<Player> winners = new ArrayList<Player>();
 	private static int respawnProt = new ConfigFile("config").get().getInt("respawn-protection");
-
+	private int databaseGameId;
+	
 	public UPvPMap(String name) {
 		plugin = Main.plugin;
 		this.name = name;
@@ -103,7 +105,29 @@ public class UPvPMap {
 	}
 
 	public void startGame() {
-		//Complete the following actions on all players of the game
+		ArrayList<Runnable> databaseStatements = new ArrayList<>();
+
+		// Add game to database
+		databaseStatements.add(() -> {
+			try {
+				Connection conn = Main.getDatabaseConnection();
+				String sql = "INSERT INTO game () VALUES ()";
+
+				PreparedStatement preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				int affectedRows = preparedStatement.executeUpdate();
+				if (affectedRows > 0) {
+					try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+						if (generatedKeys.next()) {
+							databaseGameId = generatedKeys.getInt(1);
+						}
+					}
+				}
+				conn.close();
+			} catch (SQLException exception) {
+				exception.printStackTrace();
+			}
+		});
+
 		for (Player player : inGame) {
 			//Reset player
 			this.resetPlayer(player);
@@ -116,6 +140,44 @@ public class UPvPMap {
 		}
 
 		this.updateAllBalanceScoreboard();
+		for (Player player : inGame) {
+			Economy eco = Economy.getEconomy(player);
+			if (eco == null) continue;
+			eco.getCurrentMap().updateAllBalanceScoreboard();
+
+			databaseStatements.add(() -> {
+				try {
+					Connection conn = Main.getDatabaseConnection();
+					String sql;
+					PreparedStatement preparedStatement;
+
+					// Add game player to database
+					sql = "INSERT IGNORE INTO player (player_uuid, player_name) VALUES (?, ?)";
+					preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					preparedStatement.setString(1, player.getUniqueId().toString());
+					preparedStatement.setString(2, player.getName());
+					preparedStatement.executeUpdate();
+
+					// Add game player to database
+					sql = "INSERT INTO game_player (game_id, player_uuid) VALUES (?, ?)";
+					preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+					preparedStatement.setInt(1, databaseGameId); // databaseGameId is accessible here
+					preparedStatement.setString(2, player.getUniqueId().toString());
+					preparedStatement.executeUpdate();
+					conn.close();
+
+				} catch (SQLException exception) {
+					exception.printStackTrace();
+				}
+			});
+		}
+
+		// Create and run a single task for all database operations
+		Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+			for (Runnable statement : databaseStatements) {
+				statement.run();
+			}
+		});
 	}
 
 	public void playerFinish(Player player) {
@@ -199,4 +261,8 @@ public class UPvPMap {
 		player.setBedSpawnLocation(spawn, true);
 	}
 
+	public int getDatabaseGameId() {
+		return databaseGameId;
+	}
+	
 }

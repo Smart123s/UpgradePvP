@@ -17,6 +17,7 @@
 */
 package upgradepvp.shop;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,6 +26,11 @@ import org.bukkit.inventory.meta.ItemMeta;
 import upgradepvp.config.ConfigFile;
 import upgradepvp.economy.Economy;
 import upgradepvp.main.Main;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class PurchaseItem {
 	static ConfigFile priceConfig = ConfigFile.get("price");	
@@ -38,6 +44,26 @@ public class PurchaseItem {
 		player.getInventory().addItem(item);
 		eco.removeMoney(price);
 		eco.getCurrentMap().updateAllBalanceScoreboard();
+
+		// Add purchase to database
+		Bukkit.getScheduler().runTaskAsynchronously(Main.plugin, () -> {
+			try {
+				Connection conn = Main.getDatabaseConnection ();
+				String sql;
+				PreparedStatement preparedStatement;
+
+				sql = "INSERT INTO purchase (game_id, player_uuid, item, price) VALUES (?, ?, ?, ?)";
+				preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setInt(1, eco.getCurrentMap().getDatabaseGameId());
+				preparedStatement.setString(2, player.getUniqueId().toString());
+				preparedStatement.setString(3, item.getType().name() + "$" + item.getItemMeta().getDisplayName());
+				preparedStatement.setInt(4, price);
+				preparedStatement.executeUpdate();
+				conn.close();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		});
 	}
 	
 	public static ItemStack removeMeta(ItemStack item, boolean keepName) {
